@@ -1,0 +1,54 @@
+
+// Main colors
+
+$darkBlue: #15123F;
+$yellow: #FCE469;
+$mint: #73C9B7;
+$green: #ABD699;
+$lightBlue: #E4EDFD;
+
+// Second colors
+
+$black: #000000;
+$grey: #999999;
+$lightGrey: #EAEAEA;
+$white: #FFFFFF;
+$red: #FF2F2F;
+
+// Gradients
+
+$greenMintYellow: linear-gradient(217deg, $green, rgba(255, 0, 0, 0) 70.71%),
+linear-gradient(127deg, $mint, rgba(0,255,0,0) 70.71%),
+linear-gradient(336deg, $yellow, rgba(0,0,255,0) 70.71%);
+
+// Mixins
+
+@mixin font($size, $weight, $color) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+}    
+
+@mixin border-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin flex($wrap: nowrap, $direction: row) {
+    -webkit-display: flex;
+    display: flex;
+    -webkit-flex-wrap: $wrap;
+    -ms-flex-wrap: $wrap;
+    flex-wrap: $wrap; 
+    -webkit-flex-wrap: $direction;
+    -ms-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
+
+
+
+
+
+

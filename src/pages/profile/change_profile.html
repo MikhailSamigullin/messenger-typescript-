@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile.css">
+    <title>Изменение профиля</title>
+</head>
+<body>
+    <div class="container">
+        <a href="../profile/profile.html" class="sidebar"></a>
+        <div class="main">
+            <div class="profile">
+                <div class="header">
+                    <a href="#" class="header__photo"></a>
+                    <span class="header__name">Иван</span>
+                </div>
+                <form id="profile-info" class="profile-info" action="../profile/profile.html">
+                    <ul>
+                        <li>
+                            <span>Почта</span>
+                            <input type="email" 
+                                   name="email" 
+                                   id="email"
+                                   placeholder="pochta@yandex.ru">
+
+                        </li>
+                        <li>
+                            <span>Логин</span>
+                            <input type="text" 
+                                   name="text" 
+                                   id="text"
+                                   placeholder="ivanivanov">
+                        </li>
+                        <li>
+                            <span>Имя</span>
+                            <input type="text" 
+                                   name="name" 
+                                   id="name"
+                                   placeholder="Иван">
+                        </li>
+                        <li>
+                            <span>Фамилия</span>
+                            <input type="text" 
+                                   name="surname" 
+                                   id="surname"
+                                   placeholder="Иванов">
+                        </li>
+                        <li>
+                            <span>Имя в чате</span>
+                            <input type="text" 
+                                   name="nicname" 
+                                   id="nicname"
+                                   placeholder="Иван">
+                        </li>
+                        <li>
+                            <span>Телефон</span>
+                            <input type="tel" 
+                                   name="phone"
+                                   id="phone"
+                                   placeholder="+7 (909) 967 30 30">
+                        </li>
+                    </ul>
+                </form>
+                <div class="footer">
+                    <button href="" type="submit" class="footer__button" form="profile-info" >Сохранить</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

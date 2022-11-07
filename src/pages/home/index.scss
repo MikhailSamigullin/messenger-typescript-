@@ -1,0 +1,53 @@
+@import '../../style/_base.scss';
+@import '../../style/_variables.scss';
+
+body {
+    background: $greenMintYellow;
+}
+
+.container { 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}.enter {
+    @include flex(nowrap, column);
+    min-width: 340px;
+    min-height: 280px;
+    margin: auto;
+    align-items: center;
+    padding: 30px;
+    border-radius: 20px; 
+    background-color: $white;
+    position: relative;
+ }
+ 
+
+.enter__title {
+    @include font(48px, 500, $darkBlue);
+    text-align: right;
+    width: 280px;
+ }
+
+ .enter__button {
+    @include font(13px, 400, $white);
+    background-color: $mint;
+    width: 280px;
+    height: 37px;
+    border-radius: 8px;
+    justify-self: end;
+    margin-top: 30px;
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 36px;
+ }
+.enter__link-list {
+
+}
+    
+
+
+.enter__link {
+    @include font(11px, 500, $darkBlue);
+    margin: 0 10px;
+ }
