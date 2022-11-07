@@ -1,5 +1,5 @@
-@import '../../style/_base.scss';
-@import '../../style/_variables.scss';
+@import '../../../style/base';
+@import '../../../style/_variables.scss';
 
 .container {
     @include flex(nowrap, row);
@@ -8,7 +8,7 @@
 .sidebar {
 
     background-color: $yellow;
-    background-image: url(../../../static/svg/arrow_back_ios.svg);
+    background-image: url(../../../../static/svg/arrow_back_ios.svg);
     background-repeat: no-repeat;
     background-position: center;
     min-height: 46px;
@@ -39,7 +39,7 @@
     height: 130px;
     border-radius: 65px;
     background-color: $lightBlue;
-    background-image: url(../../../static/svg/account_box.svg);
+    background-image: url(//static/svg/account_box.svg);
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 21px;

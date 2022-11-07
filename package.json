@@ -2,11 +2,11 @@
   "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "src/pages/home/index.js",
+  "main": "src/pages/index.js",
   "type": "module",
   "scripts": {
-    "dev": "parcel src/pages/home/index.hbs",
-    "build": "parcel build src/pages/home/index.hbs"
+    "dev": "parcel src/pages/index.hbs",
+    "build": "parcel build src/pages/index.hbs"
   },
   "keywords": [],
   "author": "",

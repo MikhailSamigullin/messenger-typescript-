@@ -1,4 +1,4 @@
-import {value} from '../../modules/value.js';
+import {value} from '../modules/value.js';
 
 const span = document.querySelector('#span');
 
