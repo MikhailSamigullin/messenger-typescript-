@@ -1,34 +1,33 @@
 @import '../../style/_base.scss';
 @import '../../style/_variables.scss';
 
-.container {
+.error_container {
     background: $greenMintYellow;
     height: 100vh;
     display: flex;
     justify-content: center;
  }
-.error-block {
+ .error-block {
     @include flex(nowrap, column);
-
     min-width: 320px;
     margin: auto;
     align-items: center;
  }
-.error-block__number {
+ .error-block__number {
     @include font(64px, 800, $yellow);
     text-shadow: 2px 2px 0px $mint;
  }
-.error-block__message {
+ .error-block__message {
     @include font(20px, 500, $red);
     width: 290px;
     height: 73px;
     border-radius: 4px;
-    background-color: $yellow;
+    background-color: $white;
     text-align: center;
     line-height: 24px;
     padding: 12px;
  }
-.error-block__back {
+ .error-block__back {
     @include font(16px, 500, $darkBlue);
     text-align: center;
     padding: 21px;
@@ -47,11 +46,9 @@
         color: $darkBlue;
     }
     &::before {
-        background-image: url();
         content: "<";
         position: absolute;
         top: 20px;
         left: 0px;
-        
     }
  }

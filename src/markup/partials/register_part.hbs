@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login-register.css">
-    <title>Register</title>
-</head>
-<body>
-    <div class="container">
-
-        <div class="login-register">
-              <a href="javascript:history.back()" class="sidebar"></a>
-            <h1 class="login-register__title">Регистрация</h1>
+<h1 class="login-register__title">Регистрация</h1>
             <div class="login-register__block">
-                <form id="login-form" action="../chat/chat_list.html">
+                <form id="login-form" action="">
                     <label class="input__label" for="email">Почта</label>
                     <input class="input__text" 
                            type="email" 
@@ -66,8 +52,4 @@
                     <span class="input__error">Пароли не совпадают</span>  
                 </form>
             </div>
-            <button form="login-form" type="submit" class="login-register__button">Зарегистрироваться</button>   
-        </div>
-    </div>
-</body>
-</html>
+              {{>button link="../chat/chat_list.hbs" cls="login-register__button" label="Зарегистрироваться"}}

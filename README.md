@@ -1,8 +1,18 @@
-### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
+#This is a chat project
 
-### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
-### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).
+##First sprint.
+Here's used:
+    - SASS: scss sintax.
+    - Parsel: create folder '/dist' for deploy.
+    - Handlebars: use .hbs files and partials.
+    - Node + Express: distribute static files
 
-### Например, задания для проектной работы во втором спринте вы делаете в ветке sprint_2. Открываете из неё pull request в ветку main. Ссылку на этот pr добавляете в README.md в ветке main. После этого на платформе Практикума нажимаете «Проверить задание».
 
-### Также не забудьте проверить, что репозиторий публичный.
+######Run node server with command:
+`npm run start`
+
+######Run Parsel:
+`npm run dev`
+
+Deployed app on Netlify:
+https://cerulean-arithmetic-f78880.netlify.app

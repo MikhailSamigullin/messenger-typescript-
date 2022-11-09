@@ -1,16 +1,38 @@
-@import '../../style/_base.scss';
-@import '../../style/_variables.scss';
+@import '../style/_base';
+@import '../style/_variables.scss';
+@import './chat/_chat.scss';
+@import './chat/profile/_profile.scss';
+@import './login/_login-register.scss';
+@import './errors/_errors.scss';
 
 body {
+    & .profile_container {
+        background: $white;
+    }
+    & .chat {
+        background: $white;
+    }
     background: $greenMintYellow;
 }
-
-.container { 
+.index_container { 
     height: 100vh;
     display: flex;
     justify-content: center;
-
-}.enter {
+}
+.sidebar {
+    background-color: $yellow;
+    background-image: url(../../static/svg/arrow_back_ios.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 46px;
+    width: 46px;
+    position: absolute;
+    border-radius: 0 18px 18px 0;
+    background-size: 30%;
+    top: 30px;
+    left:0;
+ }
+.enter {
     @include flex(nowrap, column);
     min-width: 340px;
     min-height: 280px;
@@ -21,14 +43,11 @@ body {
     background-color: $white;
     position: relative;
  }
- 
-
 .enter__title {
     @include font(48px, 500, $darkBlue);
     text-align: right;
     width: 280px;
  }
-
  .enter__button {
     @include font(13px, 400, $white);
     background-color: $mint;
@@ -42,11 +61,7 @@ body {
     line-height: 36px;
  }
 .enter__link-list {
-
 }
-    
-
-
 .enter__link {
     @include font(11px, 500, $darkBlue);
     margin: 0 10px;
