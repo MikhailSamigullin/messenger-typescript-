@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/pages/index.js",
-  "type": "commonjs",
   "scripts": {
     "dev": "parcel src/pages/index.hbs",
     "build": "parcel build src/pages/index.hbs",

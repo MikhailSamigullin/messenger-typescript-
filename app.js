@@ -6,4 +6,4 @@ app.use(express.static('dist'));
 
 app.listen(port, () => {
     console.log(`Server is working on ${port} port`);
-})
+});
