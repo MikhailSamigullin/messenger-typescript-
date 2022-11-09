@@ -1,6 +1,6 @@
-#This is a chat project
+This is a chat project
 
-##First sprint.
+First sprint.
 Here's used:
     - SASS: scss sintax.
     - Parsel: create folder '/dist' for deploy.
@@ -8,10 +8,10 @@ Here's used:
     - Node + Express: distribute static files
 
 
-######Run node server with command:
+Run node server with command:
 `npm run start`
 
-######Run Parsel:
+Run Parsel:
 `npm run dev`
 
 Deployed app on Netlify:
