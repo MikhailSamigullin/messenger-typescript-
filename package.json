@@ -15,17 +15,16 @@
   "author": "MikhailSamigullin",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "parcel": "^2.7.0",
-    "express": "^4.18.2"
+    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@parcel/packager-raw-url": "^2.7.0",
+    "@parcel/transformer-webmanifest": "^2.7.0",
+    "parcel": "2.7.0"
   },
   "dependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "parcel": "^2.7.0",
-    "express": "^4.18.2"
+    "express": "4.18.2"
   },
   "engines": {
-    "node": ">=16.13.2",
-    "npm": ">=8.1.2"
+    "node": "16.13.2",
+    "npm": "8.1.2"
   }
 }

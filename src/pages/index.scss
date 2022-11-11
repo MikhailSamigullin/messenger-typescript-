@@ -61,8 +61,12 @@ body {
     line-height: 36px;
  }
 .enter__link-list {
+    & ul {
+        @include flex(wrap, row);
+        width: 280px;
+        justify-content: space-between;
+    }
 }
 .enter__link {
     @include font(11px, 500, $darkBlue);
-    margin: 0 10px;
  }

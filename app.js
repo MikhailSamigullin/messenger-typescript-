@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('./dist'));
 
-app.listen(port, () => {
-    console.log(`Server is working on ${port} port`);
+app.listen(PORT, () => {
+    console.log(`Server is working on ${PORT} port`);
 });

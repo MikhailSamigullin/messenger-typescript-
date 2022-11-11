@@ -5,24 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    {{>favicon}}
     <title>Просто. Чат.</title>
 </head>
 <body>
-    <div class="index_container">
+    <main class="index_container">
         <div class="enter">
             <h1 class="enter__title">Просто.
                 <br> Чат.
             </h1>
             {{>button link="./login/login.hbs" cls="enter__button" label="Авторизоваться"}}   
-            <div class="enter__link-list">
-                <a href="#" class="enter__link">Контакты</a>
-                <a href="#" class="enter__link">Политика конфиденциальности</a>
-                <br>
-                <a class="enter__link">© 2022 Company name</a>
-                <a href="#" class="enter__link">Условия использования</a>
-            </div>
+            <nav class="enter__link-list">
+                <ul>
+                    <li><a href="#" class="enter__link">Контакты</a></li>
+                    <li><a href="#" class="enter__link">Политика конфиденциальности</a></li>
+                    <li><a class="enter__link">© 2022 Company name</a></li>
+                    <li><a href="#" class="enter__link">Условия использования</a></li>
+                </ul>
+
+            </nav>
         </div>
-    </div>
+    </main>
     <a href="./errors/error_404.hbs"></a>
 <a href="./errors/error_500.hbs"></a>
 </body>
