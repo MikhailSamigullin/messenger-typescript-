@@ -1,0 +1,30 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/pages/index.js",
+  "targets": {
+    "main": false
+  },
+  "scripts": {
+    "dev": "parcel src/pages/index.hbs --no-cache",
+    "build": "parcel build src/pages/index.hbs --no-cache",
+    "start": "parcel build src/pages/index.hbs & node app.js"
+  },
+  "keywords": [],
+  "author": "MikhailSamigullin",
+  "license": "ISC",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@parcel/packager-raw-url": "^2.7.0",
+    "@parcel/transformer-webmanifest": "^2.7.0",
+    "parcel": "2.7.0"
+  },
+  "dependencies": {
+    "express": "4.18.2"
+  },
+  "engines": {
+    "node": "16.13.2",
+    "npm": "8.1.2"
+  }
+}
