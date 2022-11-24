@@ -1,0 +1,17 @@
+@import "../style/base";
+@import "../style/variables";
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap";
+
+.button {
+    @include font(13px, 400, $white);
+  
+    background-color: $mint;
+    width: 280px;
+    height: 37px;
+    border-radius: 8px;
+    justify-self: end;
+    margin-top: auto;
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 36px;
+  }

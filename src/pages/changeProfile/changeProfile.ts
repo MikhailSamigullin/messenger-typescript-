@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{>favicon prefix="../../"}}
-    <link rel="stylesheet" href="../../index.css">
-    <title>Изменение профиля</title>
-</head>
-<body>
-    <div class="profile__container">
-        {{>back_button link="../profile/profile.hbs"}}
+import { Block } from '../../utils/Block';
+
+interface ChangeProfilePageProps {
+}
+
+export class ChangeProfilePage extends Block {
+    constructor(props: ChangeProfilePageProps) {
+        super('div', props);
+
+        
+    }
+    // onButtonClick = () => {
+    //     console.log('click on the button');
+    // }
+//class="sidebar" href="/"
+    render() {
+        return `  
+        <div class="profile__container">
+        {{#BackButton href="/profile"}}
+        {{/BackButton}}
             <div class="profile">
                 <div class="header">
                     <a href="#" class="header__photo"></a>
                     <span class="header__name">Иван</span>
                 </div>
-                <form id="profile-info" class="profile-info" action="">
+                <form id="profile-info" class="profile-info" action="/profile">
                     <ul>
                         <li>
                             <span>Почта</span>
@@ -62,11 +69,15 @@
                                    placeholder="+7 (909) 967 30 30">
                         </li>
                     </ul>
-                </form>
-                <div class="footer">
-                    {{>button link="./profile.hbs" cls="footer__button" label="Сохранить"}}
+                    <div class="footer">
+                {{#Button class="button" type="submit" }}
+                    Сохранить
+                    {{/Button}} 
                 </div>
+                </form>
+                
             </div>
     </div>
-</body>
-</html>
+    `
+    }
+}

@@ -2,7 +2,7 @@
   "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "src/pages/index.js",
+  "main": "src/pages/index.ts",
   "targets": {
     "main": false
   },
@@ -10,6 +10,8 @@
     "lintfix": "stylelint \"**/*.scss\" --fix",
     "lint": "stylelint \"**/*.scss\"",
     "dev": "parcel src/pages/index.hbs --no-cache",
+    "dev1": "parcel src/pages/home/index.html --no-cache",
+    "dev2": "parcel src/pages/index.html --no-cache",
     "build": "parcel build src/pages/index.hbs --no-cache",
     "start": "parcel build src/pages/index.hbs & node app.js"
   },
@@ -17,7 +19,7 @@
   "author": "MikhailSamigullin",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
     "@parcel/packager-raw-url": "2.7.0",
     "@parcel/transformer-webmanifest": "2.7.0",
     "@typescript-eslint/eslint-plugin": "5.43.0",
@@ -35,7 +37,9 @@
     "typescript": "4.9.3"
   },
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.18.2",
+    "nanoid": "^4.0.0",
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "engines": {
     "node": "16.13.2",
