@@ -5,7 +5,7 @@ enum METHODS {
   PUT = 'PUT',
   POST = 'POST',
   DELETE = 'DELETE',
-};
+}
 
 type Options = {
   method: METHODS

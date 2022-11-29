@@ -1,12 +1,13 @@
 @import "../style/base";
 @import "../style/variables";
-@import "./chat/chat";
-@import "./chat/profile/profile";
-@import "./login/login-register";
-@import "./errors/errors";
+@import "../style/chat";
+@import "../style/profile";
+@import "../style/login";
+@import "../style/register";
+@import "../style/errors";
 
 body {
-  & .profile_container {
+  & .profile__container {
     background: $white;
   }
 

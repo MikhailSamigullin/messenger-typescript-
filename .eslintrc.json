@@ -6,8 +6,9 @@
     "extends": [
         "airbnb-base"
     ],
-    // "overrides": [
-    // ],
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"

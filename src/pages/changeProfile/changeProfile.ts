@@ -1,83 +1,65 @@
 import { Block } from '../../utils/Block';
 
 interface ChangeProfilePageProps {
+  title: string;
 }
 
 export class ChangeProfilePage extends Block {
-    constructor(props: ChangeProfilePageProps) {
-        super('div', props);
+  constructor(props: ChangeProfilePageProps) {
+    super('div', props);
+  }
 
-        
-    }
-    // onButtonClick = () => {
-    //     console.log('click on the button');
-    // }
-//class="sidebar" href="/"
-    render() {
-        return `  
-        <div class="profile__container">
-        {{#BackButton href="/profile"}}
-        {{/BackButton}}
+  render() {
+    return `  
+            <div class="profile__container">
+            {{#BackButton href="/profile"}}
+            {{/BackButton}}
             <div class="profile">
                 <div class="header">
-                    <a href="#" class="header__photo"></a>
-                    <span class="header__name">Иван</span>
+                <a href="#" class="header__photo"></a>
+                <span class="header__name">Иван</span>
                 </div>
                 <form id="profile-info" class="profile-info" action="/profile">
-                    <ul>
-                        <li>
-                            <span>Почта</span>
-                            <input type="email" 
-                                   name="email" 
-                                   id="email"
-                                   placeholder="pochta@yandex.ru">
-
-                        </li>
-                        <li>
-                            <span>Логин</span>
-                            <input type="text" 
-                                   name="login" 
-                                   id="login"
-                                   placeholder="ivanivanov">
-                        </li>
-                        <li>
-                            <span>Имя</span>
-                            <input type="text" 
-                                   name="first_name" 
-                                   id="first_name"
-                                   placeholder="Иван">
-                        </li>
-                        <li>
-                            <span>Фамилия</span>
-                            <input type="text" 
-                                   name="second_name" 
-                                   id="second_name"
-                                   placeholder="Иванов">
-                        </li>
-                        <li>
-                            <span>Имя в чате</span>
-                            <input type="text" 
-                                   name="display_name" 
-                                   id="display_name"
-                                   placeholder="Иван">
-                        </li>
-                        <li>
-                            <span>Телефон</span>
-                            <input type="tel" 
-                                   name="phone"
-                                   id="phone"
-                                   placeholder="+7 (909) 967 30 30">
-                        </li>
-                    </ul>
-                    <div class="footer">
-                {{#Button class="button" type="submit" }}
-                    Сохранить
-                    {{/Button}} 
+                <label class="input__label" for="email">Почта</label>
+                {{#Input class="input" type="email" name="email" value="dqwdtuqfd@mail.ru" }} 
+                {{/Input}}
+                <span id="email" class="input__error"> </span>
+        
+                <label class="input__label" for="login">Логин</label>
+                {{#Input class="input" type="text" name="login" value="Ivann" }} 
+                {{/Input}}
+                <span id="login" class="input__error"> </span>
+                
+                <label class="input__label" for="first_name">Имя</label>
+                {{#Input class="input" type="text" name="first_name" value="Иван" }} 
+                {{/Input}}
+                <span id="first_name" class="input__error"> </span>
+        
+                <label class="input__label" for="second_name">Фамилия</label>
+                {{#Input class="input" type="text" name="second_name" value="Иванович" }} 
+                {{/Input}}
+                <span id="second_name" class="input__error"> </span>
+        
+                <label class="input__label" for="phone">Телефон</label>
+                {{#Input class="input" type="tel" name="phone" value="89090000000" }} 
+                {{/Input}}
+                <span id="phone" class="input__error"> </span>
+        
+                <label class="input__label" for="password">Пароль</label>
+                {{#Input class="input" type="password" name="password" value="Пароль" }} 
+                {{/Input}}
+                <span id="password" class="input__error"> </span>
+        
+                
+                <div class="footer">
+                {{#Button type="submit" }}
+                Сохранить
+                {{/Button}} 
                 </div>
                 </form>
                 
             </div>
-    </div>
-    `
-    }
+        </div>
+  `
+  }
 }

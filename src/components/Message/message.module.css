@@ -113,17 +113,34 @@ legend {
   box-sizing: border-box;
 }
 
-.button {
+.message {
   font-size: 13px;
-  font-weight: 400;
-  color: #fff;
-  background-color: #73c9b7;
-  width: 280px;
-  height: 37px;
-  border-radius: 8px;
-  justify-self: end;
-  margin-top: auto;
-  margin-bottom: 6px;
-  text-align: center;
-  line-height: 36px;
+  font-weight: 600;
+  color: #15123f;
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+  border: 1px solid #abd699;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.message__answer {
+  font-size: 13px;
+  font-weight: 600;
+  color: #15123f;
+  min-width: 200px;
+  max-width: 400px;
+  border: 1px solid #fce469;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.message__data {
+  font-size: 11px;
+  font-weight: 600;
+  color: #15123f;
+  text-align: right;
 }
