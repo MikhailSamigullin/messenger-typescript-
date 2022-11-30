@@ -5,7 +5,7 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-}
+ }
 
 .login-register {
   @include flex(nowrap, column);
@@ -18,38 +18,39 @@
   border-radius: 20px;
   background-color: $white;
   position: relative;
-}
+ }
 
 .login-register__title {
   @include font(20px, 500, $dark-blue);
 
   text-align: center;
   margin-top: 20px;
-}
+ }
 
 .login-register__block {
   margin-top: 40px;
 
   & input {
     box-shadow: 0 1px $yellow;
-  }
-}
+   }
+   
+ }
 
 form {
   @include flex(nowrap, column);
-}
+ }
 
 .input__label {
   @include font(9px, 500, $mint);
 
   margin-bottom: 6px;
-}
+ }
 
 .input__error {
   @include font(8px, 400, $red);
 
   margin-bottom: 16px;
-}
+ }
 
 .input__text {
   @include font(13px, 500, $dark-blue);
@@ -57,7 +58,7 @@ form {
   margin-bottom: 6px;
   width: 280px;
   height: 22px;
-}
+ }
 
 .login-register__button {
   @include font(13px, 400, $white);
@@ -71,8 +72,8 @@ form {
   margin-bottom: 6px;
   text-align: center;
   line-height: 36px;
-}
+ }
 
 .login-register__register-link {
   @include font(11px, 500, $dark-blue);
-}
+ }

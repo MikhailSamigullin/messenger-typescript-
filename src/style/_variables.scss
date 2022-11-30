@@ -26,14 +26,14 @@ $green-mint-yellow: linear-gradient(217deg, $green, rgb(255 0 0 / 0%) 70.71%),
   font-size: $size;
   font-weight: $weight;
   color: $color;
-}
+ }
 
 @mixin border-box {
   box-sizing: border-box;
-}
+ }
 
 @mixin flex($wrap: nowrap, $direction: row) {
   -webkit-display: flex;
   display: flex;
   flex-flow: $wrap $direction;
-}
+ }

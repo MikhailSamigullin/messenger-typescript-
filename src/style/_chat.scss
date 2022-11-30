@@ -7,7 +7,7 @@
   background: $green-mint-yellow;
   position: relative;
   min-height: 100vh;
-}
+ }
 
 .chat-list {
   @include flex(nowrap, column);
@@ -22,8 +22,9 @@
 
   @media (max-width: 505px) {
     border: 2px $green solid;
-  }
-}
+   }
+
+ }
 
 .chat-list__add-button {
   @include font(12px, 500, $white);
@@ -32,7 +33,7 @@
   width: 120px;
   margin-top: 16px;
   margin-right: 20px;
-}
+ }
 
 .chat-list__profile {
   @include font(12px, 500, $dark-blue);
@@ -47,8 +48,9 @@
   & a:last-child {
     margin-top: 16px;
     margin-right: 20px;
-  }
-}
+   }
+
+ }
 
 .chat-list__search {
   width: 100%;
@@ -77,15 +79,18 @@
       background-image: url("../../static/svg/search.svg");
       background-repeat: no-repeat;
       background-position: 38%;
-    }
-  }
-}
+     }
+
+   }
+
+ }
 
 .list {
   &:last-child {
     border-bottom: solid 1px $light-grey;
-  }
-}
+   }
+
+ }
 
 .list__item {
   @include flex(nowrap, row);
@@ -96,8 +101,9 @@
 
   &:hover {
     background-color: $mint;
-  }
-}
+   }
+
+ }
 
 .list__photo {
   height: 47px;
@@ -106,7 +112,7 @@
   background-color: $yellow;
   margin: 0 10px;
   flex-grow: 0;
-}
+ }
 
 .list__chat {
   @include flex(nowrap, column);
@@ -114,13 +120,13 @@
   flex-grow: 1;
   min-width: 193px;
   max-width: 75%;
-}
+ }
 
 .list__name {
   @include font(13px, 600, $dark-blue);
 
   margin-bottom: 4px;
-}
+ }
 
 .list__last-message {
   @include font(12px, 500, $white);
@@ -131,8 +137,9 @@
     @include font(13px, 500, $dark-blue);
 
     text-align: left;
-  }
-}
+   }
+
+ }
 
 .list__info {
   @include flex(nowrap, column);
@@ -143,11 +150,11 @@
   margin-right: 10px;
   width: 45px;
   flex-grow: 0;
-}
+ }
 
 .list__data {
   @include font(9px, 500, $dark-blue);
-}
+ }
 
 .list__unread-messages {
   @include font(11px, 500, $dark-blue);
@@ -158,14 +165,14 @@
   background-color: $yellow;
   text-align: center;
   line-height: 20px;
-}
+ }
 
 .chat {
   @include flex(nowrap, column);
 
   width: 100%;
   height: 100vh;
-}
+ }
 
 .chat__header {
   @include flex(nowrap, row);
@@ -177,7 +184,7 @@
   flex-grow: 0;
   flex-shrink: 0;
   margin-top: 18px;
-}
+ }
 
 .chat__photo {
   background-color: $yellow;
@@ -188,13 +195,13 @@
   flex-grow: 0;
   flex-shrink: 0;
   text-align: center;
-}
+ }
 
 .chat__name {
   @include font(13px, 600, $dark-blue);
 
   flex-grow: 1;
-}
+ }
 
 .chat__menu {
   background-color: $white;
@@ -210,13 +217,14 @@
 
   &:hover {
     background-color: $light-blue;
-  }
-}
+   }
+
+ }
 
 .dialog {
   flex-grow: 1;
   background-color: $white;
-}
+ }
 
 .chat__footer {
   @include flex(nowrap, row);
@@ -228,7 +236,7 @@
   flex-shrink: 0;
   position: static;
   bottom: 0;
-}
+ }
 
 .chat__upload {
   background-color: $yellow;
@@ -241,7 +249,7 @@
   margin: 0 20px;
   flex-grow: 0;
   flex-shrink: 0;
-}
+ }
 
 .chat__message {
   @include font(12px, 500, $dark-blue);
@@ -255,8 +263,9 @@
 
   &::placeholder {
     @include font(12px, 500, $grey);
-  }
-}
+   }
+   
+ }
 
 .chat__button {
   background-color: $yellow;
@@ -270,4 +279,4 @@
   flex-grow: 0;
   flex-shrink: 0;
   margin: 0 20px;
-}
+ }
