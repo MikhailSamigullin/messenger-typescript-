@@ -2,7 +2,7 @@
   "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "src/pages/index.html",
+  "main": "src/pages/index.js",
   "targets": {
     "main": false
   },
@@ -12,11 +12,8 @@
     "lintfix": "stylelint \"**/*.scss\" --fix",
     "lint": "stylelint \"**/*.scss\"",
     "dev": "parcel src/pages/index.html --no-cache",
-    "dev1": "parcel src/pages/home/index.html --no-cache",
-    "dev2": "parcel src/pages/index.html --no-cache",
     "build": "parcel build src/pages/index.html --no-cache",
-    "start": "parcel build src/pages/index.html & node app.js"
-    
+    "start": "parcel build src/pages/index.html && node app.js"
   },
   "keywords": [],
   "author": "MikhailSamigullin",
@@ -35,7 +32,6 @@
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-n": "15.5.1",
     "eslint-plugin-promise": "6.1.1",
-    
     "parcel": "2.7.0",
     "stylelint": "14.15.0",
     "stylelint-config-standard": "29.0.0",
