@@ -32,7 +32,6 @@ export class Input extends Block {
             const label = document.querySelector(`#${item}`) as HTMLElement;
              label.textContent = valid.text;    
           }
-          console.log(typeof elementName)
         }) 
       },
       blur: (e: FocusEvent) => {

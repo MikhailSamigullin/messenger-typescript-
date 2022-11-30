@@ -9,7 +9,6 @@ export function registerComponent(name: string, Component: typeof Block) {
     }
     data.root.children[component.id] = component;
     const contents = fn ? fn(this) : '';
-    console.log(fn(this));
     return `<div data-id="${component.id}">${contents}</div>`;
   });
 }
