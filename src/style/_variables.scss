@@ -20,9 +20,11 @@ $green-mint-yellow: linear-gradient(217deg, $green, rgb(255 0 0 / 0%) 70.71%),
   linear-gradient(127deg, $mint, rgb(0 255 0 / 0%) 70.71%),
   linear-gradient(336deg, $yellow, rgb(0 0 255 / 0%) 70.71%);
 
+
 // Mixins
 
 @mixin font($size, $weight, $color) {
+
   font-size: $size;
   font-weight: $weight;
   color: $color;
