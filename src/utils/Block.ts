@@ -3,23 +3,25 @@ import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
-export class Block {
+type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void>} & P;
+
+export abstract class Block<P extends Record<string, unknown> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:rendeAr',
     FLOW_CDU: 'flow:component-did-update',
-  };  
+  } as const;  
 
   private _element : HTMLElement | null = null;
-  private _meta : {tagName: string, props: any};
+  private _meta : {tagName: string, props: unknown};
   public refs: Record<string, Block> = {};
-  protected props: Record<string, unknown>;
+  protected props: Props<P>;
   private eventBus: () => EventBus;
-  public children: Record<string, Block>;
+  public children: Record<string, Block<any>>;
   public id = nanoid(6);
 
-  constructor(tagName = 'div', propsWithChildren: any = {}) {
+  constructor(tagName = 'div', propsWithChildren: Props = {} as Props<P>) {
     const eventBus = new EventBus();
     const {props, children} = this._getChildrenAndProps(propsWithChildren);
     this._meta = {
@@ -37,25 +39,36 @@ export class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(ChildrenAndProps: any) {
+  _getChildrenAndProps(ChildrenAndProps: Props<P>): {props:Props<P>, children: Record<string, Block>} {
     const children: Record<string, Block> = {};
-    const props: Record<string, any> = {};
+    const props = {} as Props;
 
     Object.entries(ChildrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       } else {
-        props[key] = value;
+        props[key as keyof Props<P>] = value;
       }
     })
-    return {props, children};
+    return {props: props as Props<P>, children};
   }
 
   _addEvent() {
-    const {events = {}} = this.props as {events: Record<string, () => void>};
+    const {events = {}} = this.props;
     Object.keys(events).forEach(eventName => {
       this.element?.addEventListener(eventName, events[eventName]);
     })
+  }
+
+  _removeEvents() {
+    const {events = {}} = this.props as {events: Record<string, () => void>};
+    if (!events || !this._element) {
+      return;
+    }
+
+    Object.keys(events).forEach((eventName) => {
+      this.element?.removeEventListener(eventName, events[eventName]);
+    });
   }
 
 
@@ -92,7 +105,7 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any) {
+  _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -100,11 +113,11 @@ export class Block {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(oldProps: Props<P>, newProps: Props<P>): boolean {
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: Partial<Props<P>>) => {
     if (!nextProps) {
       return;
     }
@@ -152,17 +165,17 @@ export class Block {
     return this.element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: Props<P>) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as string];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
         const oldProps = { ...target };
-        target[prop] = value;
+        target[prop as keyof Props<P>] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;
       },

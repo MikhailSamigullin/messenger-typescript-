@@ -4,5 +4,3 @@ node_modules
 .parcel-cache
 
 dist
-
-tsconfig1.json

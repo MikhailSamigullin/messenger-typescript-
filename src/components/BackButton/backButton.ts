@@ -11,9 +11,7 @@ interface backButtonProps {
 export class BackButton extends Block {
   constructor(props: backButtonProps) {
     super('a', {
-      label: props.label,
-      type: props.type,
-      href: props.href,
+      ...props,
       style: styles,
       events: {
       click: props.onClick

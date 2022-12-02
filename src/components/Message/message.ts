@@ -13,10 +13,7 @@ export class Message extends Block {
   [x: string]: any;
   constructor(props: MessageProps) {
     super('div', {
-      message: props.message,
-      areYouOwner: props.areYouOwner,
-      data: props.data,
-      id: props.id,
+      ...props,
       style: styles,
       events: {}
       }

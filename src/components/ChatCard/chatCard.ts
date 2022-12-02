@@ -15,14 +15,7 @@ interface ChatCardProps {
 export class ChatCard extends Block {
   constructor(props: ChatCardProps) {
     super('div', {
-      name: props.name,
-      yourMessage: props.yourMessage,
-      chatList: props.chatList,
-      lastMessage: props.lastMessage,
-      data: props.data,
-      id: props.id,
-      hidden: props.hidden,
-      unreadMessages: props.unreadMessages,
+      ...props,
       style: styles,
       events: {}
       }
