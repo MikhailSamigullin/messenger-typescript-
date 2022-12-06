@@ -1,0 +1,16 @@
+@import "../../style/base";
+@import "../../style/variables";
+
+.sidebar {
+  background-color: $yellow;
+  background-image: url("../../../static/svg/arrow_back_ios.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 46px;
+  width: 46px;
+  position: absolute;
+  border-radius: 0 18px 18px 0;
+  background-size: 30%;
+  top: 30px;
+  left: 0;
+}

@@ -1,72 +1,87 @@
-@import '../style/_base';
-@import '../style/_variables.scss';
-@import './chat/_chat.scss';
-@import './chat/profile/_profile.scss';
-@import './login/_login-register.scss';
-@import './errors/_errors.scss';
+@import "../style/base";
+@import "../style/variables";
+@import "../style/chat";
+@import "../style/profile";
+@import "../style/login";
+@import "../style/register";
+@import "../style/errors";
 
 body {
-    & .profile_container {
-        background: $white;
-    }
-    & .chat {
-        background: $white;
-    }
-    background: $greenMintYellow;
+  & .profile__container {
+    background: $white;
+  }
+
+  & .chat {
+    background: $white;
+  }
+
+  background: $green-mint-yellow;
 }
-.index_container { 
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+
+.index__container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .sidebar {
-    background-color: $yellow;
-    background-image: url(../../static/svg/arrow_back_ios.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 46px;
-    width: 46px;
-    position: absolute;
-    border-radius: 0 18px 18px 0;
-    background-size: 30%;
-    top: 30px;
-    left:0;
- }
-.enter {
-    @include flex(nowrap, column);
-    min-width: 340px;
-    min-height: 280px;
-    margin: auto;
-    align-items: center;
-    padding: 30px;
-    border-radius: 20px; 
-    background-color: $white;
-    position: relative;
- }
-.enter__title {
-    @include font(48px, 500, $darkBlue);
-    text-align: right;
-    width: 280px;
- }
- .enter__button {
-    @include font(13px, 400, $white);
-    background-color: $mint;
-    width: 280px;
-    height: 37px;
-    border-radius: 8px;
-    justify-self: end;
-    margin-top: 30px;
-    margin-bottom: 6px;
-    text-align: center;
-    line-height: 36px;
- }
-.enter__link-list {
-    & ul {
-        @include flex(wrap, row);
-        width: 280px;
-        justify-content: space-between;
-    }
+  background-color: $yellow;
+  background-image: url("../../static/svg/arrow_back_ios.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 46px;
+  width: 46px;
+  position: absolute;
+  border-radius: 0 18px 18px 0;
+  background-size: 30%;
+  top: 30px;
+  left: 0;
 }
+
+.enter {
+  @include flex(nowrap, column);
+
+  min-width: 340px;
+  min-height: 280px;
+  margin: auto;
+  align-items: center;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: $white;
+  position: relative;
+}
+
+.enter__title {
+  @include font(48px, 500, $dark-blue);
+
+  text-align: right;
+  width: 280px;
+}
+
+.enter__button {
+  @include font(13px, 400, $white);
+
+  background-color: $mint;
+  width: 280px;
+  height: 37px;
+  border-radius: 8px;
+  justify-self: end;
+  margin-top: 30px;
+  margin-bottom: 6px;
+  text-align: center;
+  line-height: 36px;
+}
+
+.enter__link-list {
+  & ul {
+    @include flex(wrap, row);
+
+    width: 280px;
+    justify-content: space-between;
+  }
+}
+
 .enter__link {
-    @include font(11px, 500, $darkBlue);
- }
+  @include font(11px, 500, $dark-blue);
+}

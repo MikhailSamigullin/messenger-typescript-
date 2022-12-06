@@ -1,0 +1,68 @@
+@import "./base";
+@import "./variables";
+
+.error__container {
+  background: $green-mint-yellow;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+ }
+
+.error-block {
+  @include flex(nowrap, column);
+
+  min-width: 320px;
+  margin: auto;
+  align-items: center;
+ }
+
+.error-block__number {
+  @include font(64px, 800, $yellow);
+
+  text-shadow: 2px 2px 0 $mint;
+ }
+
+.error-block__message {
+  @include font(20px, 500, $red);
+
+  width: 290px;
+  height: 73px;
+  border-radius: 4px;
+  background-color: $white;
+  text-align: center;
+  line-height: 24px;
+  padding: 12px;
+ }
+
+.error-block__back {
+  @include font(16px, 500, $dark-blue);
+
+  text-align: center;
+  padding: 21px;
+  position: relative;
+
+  &:link {
+    color: $dark-blue;
+   }
+
+  &:hover {
+    color: $dark-blue;
+    text-shadow: 0 1px $mint;
+   }
+
+  &:active {
+    color: $dark-blue;
+   }
+
+  &:visited {
+    color: $dark-blue;
+   }
+
+  &::before {
+    content: "<";
+    position: absolute;
+    top: 20px;
+    left: 0;
+   }
+   
+ }
