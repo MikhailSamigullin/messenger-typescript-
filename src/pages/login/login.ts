@@ -1,8 +1,10 @@
 import { Block } from '../../utils/Block';
 import { validateInput } from '../../utils/validateInput';
+import Link from '../../components/Link';
 
 interface LoginPageProps {
   title: string;
+  label: string;
 }
 
 const data: {
@@ -29,7 +31,6 @@ export class LoginPage extends Block {
     })
     const loginInput = document.querySelector("input[name='login']") as HTMLInputElement;
     const passwordInput = document.querySelector("input[name='password']") as HTMLInputElement;
-    
 
     if (loginInput) {
       data.login = loginInput.value;
@@ -62,7 +63,9 @@ export class LoginPage extends Block {
               {{/Button}} 
             </form>  
           </div>
-          <a href="./register" class="login-register__register-link">Нет аккаунта?</a>
+          {{#Link href="./register" class="login-register__register-link"}}
+          Нет аккаунта?</a>
+          {{/Link}}
         </div>
     </main>`
   }

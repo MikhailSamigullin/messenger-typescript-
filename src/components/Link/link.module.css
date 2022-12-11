@@ -113,29 +113,8 @@ legend {
   box-sizing: border-box;
 }
 
-.input {
-  box-shadow: 0 1px #fce469;
-}
-
-.input__label {
-  font-size: 9px;
-  font-weight: 500;
-  color: #73c9b7;
-  margin-bottom: 6px;
-}
-
-.input__error {
-  font-size: 8px;
-  font-weight: 400;
-  color: #ff2f2f;
-  margin-bottom: 16px;
-}
-
-.input__text {
-  font-size: 13px;
+.link {
+  font-size: 11px;
   font-weight: 500;
   color: #15123f;
-  margin-bottom: 6px;
-  width: 280px;
-  height: 22px;
 }

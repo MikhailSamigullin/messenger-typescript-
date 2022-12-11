@@ -1,0 +1,7 @@
+@import "../../style/base";
+@import "../../style/variables";
+
+.link {
+  @include font(11px, 500, $dark-blue);
+
+ }
