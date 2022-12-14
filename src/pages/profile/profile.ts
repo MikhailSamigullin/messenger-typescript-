@@ -1,12 +1,24 @@
+import AuthController from '../../controller/AuthController';
 import { Block } from '../../utils/Block';
+import { withStore } from '../../utils/Store';
 
 interface ProfilePageProps {
   title: string;
+  to: string;
 }
 
-export class ProfilePage extends Block {
+class ProfilePageBase extends Block {
   constructor(props: ProfilePageProps) {
     super('div', props);
+    AuthController.fetchUser();
+    this.setProps({
+      to: '/',
+      event: {
+        click: () => {
+          AuthController.logout();
+        }
+      }
+    })
   }
 
   render() {
@@ -50,10 +62,19 @@ export class ProfilePage extends Block {
         <nav class="footer">
           <ul>
             <li><a href="/changeProfile" class="footer__change-info">Изменить данные</a></li>
-            <li><a href="/login" class="footer__logout">Выйти</a></li>
+            <li>
+            
+            {{#Link to="${this.props.to}" class="footer__logout" onClick="click"}}
+            Выйти
+          {{/Link}}
+            </li>
           </ul>
         </nav>
       </div>
     </div>`
   }
 }
+
+const withUser: any = withStore((state) => ({ ...state.user }))
+
+export const ProfilePage = withUser(ProfilePageBase);

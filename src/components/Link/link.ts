@@ -1,23 +1,33 @@
+import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
 import * as styles from './link.module.css';
 
-interface LinkProps {
+interface LinkProps extends PropsWithRouter {
+  to: string;
   label: string;
-  href: string;
-
+  events?: {
+    click: () => void;
+  };
 }
 
-export class Link extends Block {
+export class BaseLink extends Block {
   constructor(props: LinkProps) {
     super('button', {
       ...props,
       style: styles,
       events: {
+        click: () => this.navigate()
       }
     });
   }
 
+  navigate() {
+    this.props.router.go(this.props.to);
+  }
+
   render() {
-      return `<a href={{href}} class=${styles.link}>{{label}}</a>`
+      return `<a href={{to}} class=${styles.link} onClick={{onClick}}>{{label}}</a>`
   }
 }
+
+export const Link = withRouter(BaseLink);

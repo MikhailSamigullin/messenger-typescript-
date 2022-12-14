@@ -1,21 +1,8 @@
+import { SignupData } from '../../api/AuthApi';
+import { Input } from '../../components/Input/input';
+import AuthController from '../../controller/AuthController';
 import { Block } from '../../utils/Block';
 import { validateInput } from '../../utils/validateInput';
-
-const data: {
-  login: string, 
-  password: string, 
-  email: string, 
-  firstName: string, 
-  secondName: string, 
-  phone: string
-} = {
-  login: '',
-  password: '',
-  email: '',
-  firstName: '',
-  secondName: '',
-  phone: '',
-}
 
 interface RegisterPageProps {
   title: string;
@@ -25,34 +12,22 @@ export class RegisterPage extends Block {
   constructor(props: RegisterPageProps) {
     super('div', props);
     this.setProps({
-      submit: validateInput,
+      // submit: validateInput,
+      events: {
+        submit: () => this.onSubmit()
+      }
     })
-    const loginInput = document.querySelector("input[name='login']") as HTMLInputElement;
-    const passwordInput = document.querySelector("input[name='password']") as HTMLInputElement;
-    const emailInput = document.querySelector("input[name='email']") as HTMLInputElement;
-    const secondNameInput = document.querySelector("input[name='second_name']") as HTMLInputElement;
-    const firstNameInput = document.querySelector("input[name='first_name']") as HTMLInputElement;
-    const phoneInput = document.querySelector("input[name='phone']") as HTMLInputElement;
+  }
 
-    if (loginInput) {
-      data.login = loginInput.value;
-    }
-    if (passwordInput) {
-      data.password = passwordInput.value;
-    }
-    if (emailInput) {
-      data.email = emailInput.value;
-    }
-    if (secondNameInput) {
-      data.secondName = secondNameInput.value;
-    }
-    if (firstNameInput) {
-      data.firstName = firstNameInput.value;
-    }
-    if (phoneInput) {
-      data.phone = phoneInput.value;
-    }
+  onSubmit() {
+    const values = Object
+      .values(this.children)
+      .filter(child => child instanceof Input)
+      .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
+
+    const data = Object.fromEntries(values);
     console.log(data);
+    AuthController.signup(data as SignupData);
   }
 
 render() {
@@ -63,7 +38,7 @@ render() {
         {{/BackButton}}
         <h1 class="login-register__title">{{title}}</h1>
         <div class="login-register__block">
-          <form id="login-form" action="../chat" method="get" onClick="submit">
+          <form id="login-form" method="post" onClick="submit">
             <label class="input__label" for="email">Почта</label>
             {{#Input class="input" type="email" name="email" value="Почта" }}
             {{/Input}}

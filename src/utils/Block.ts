@@ -103,6 +103,8 @@ export abstract class Block<P extends Record<string, unknown> = any> {
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+
+    Object.values(this.children).forEach(child => child.dispatchComponentDidMount());//add
   }
 
   _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {

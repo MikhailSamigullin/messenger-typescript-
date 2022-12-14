@@ -5,8 +5,8 @@ import { validateInput } from '../../utils/validateInput';
 interface InputProps {
   type: string;
   name: string;
-  value: string;
-  text: string;
+  // value: string;
+  // text: string;
   required: string;
   inputFields: string[];
 }
@@ -18,9 +18,17 @@ export class Input extends Block {
       style: styles,
       events: {
       focus: validateInput,
-      blur: validateInput
+      blur: validateInput,
       }
     });
+  }
+
+  public getName() {
+    return (this.element as HTMLInputElement).name;
+  }
+
+  public getValue() {
+    return (this.element as HTMLInputElement).value;
   }
 
   render() {
