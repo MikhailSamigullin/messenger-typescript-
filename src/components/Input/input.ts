@@ -17,8 +17,8 @@ export class Input extends Block {
       ...props,
       style: styles,
       events: {
-      focus: validateInput,
-      blur: validateInput,
+      // focus: validateInput,
+      // blur: validateInput,
       }
     });
   }

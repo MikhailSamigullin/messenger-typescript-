@@ -99,9 +99,10 @@ class Router {
   }
 
   public go(pathname: string) {
-    this.history.pushState({}, "", pathname);
 
+    this.history.pushState({}, "", pathname);
     console.log(pathname);
+
 
     this._onRoute(pathname);
   }

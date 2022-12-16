@@ -21,12 +21,18 @@ import { chatList } from '../data/chatList';
 import Router from '../utils/Router';
 import store from '../utils/Store';
 import AuthController from '../controller/AuthController';
+import { ChangePasswordPage } from "./changePassword/changePassword";
+import { ChangeAvatarPage } from "./changeAvatar/changeAvatar";
 
 enum Routes {
   Index = '/',
   Register = '/register',
+  Profile = '/profile',
   Chat = '/chat',
-  Profile = '/profile'
+  ChatList = '/chatList',
+  ChangeProfile = '/changeProfile',
+  ChangePassword = '/changePassword',
+  ChangeAvatar = '/changeAvatar'
 }
 
 registerComponent('Button', Button as any);
@@ -36,12 +42,84 @@ registerComponent('ChatCard', ChatCard as any);
 registerComponent('Message', Message as any);
 registerComponent('Link', Link as any);
 
+// window.addEventListener('DOMContentLoaded',() => {
+//   const root = document.querySelector('#app') as HTMLDivElement;
+//   const path: string = window.location.pathname;
+//   let page: any;
+
+// // Временный роутинг
+//     const pagesList: any = {
+//       '/': new HomePage({
+//         title: 'Просто.',
+//         titleSub: 'Чат.'}),
+//       '/index': new HomePage({
+//         title: 'Просто.',
+//         titleSub: 'Чат.'}),
+//       '': new HomePage({
+//         title: 'Просто.',
+//         titleSub: 'Чат.'}),
+//       '/login': new LoginPage({
+//         title: 'Вход'}),
+//       '/register': new RegisterPage({
+//         title: 'Регистрация'}),
+//       '/error500': new ErrorPage({
+//         error: '500',
+//         title: 'ОШИБКА!',
+//         description: 'Нет ответа от сервера'}),
+//       '/error404': new ErrorPage({
+//         error: '404',
+//         title: 'ОШИБКА!',
+//         description: 'Ничего не найдено'}),
+//       '/chat': new ChatPage({name: '',
+//         yourMessage: '',
+//         chatList: '',
+//         lastMessage: '',
+//         data: '',
+//         id: '',
+//         hidden: '',
+//         unreadMessages: '',}),
+//       '/profile': new ProfilePage({
+//         title: ''
+//       }),
+//       '/changeProfile': new ChangeProfilePage({
+//         title: ''
+//       }),
+//     }
+
+//     if (Object.keys(pagesList).includes(path)) {
+//       page = pagesList[path];
+//       } else {
+//       const nextArr = Object.values(chatList).filter((item) => {
+//         if (item.id === path.slice(1)) {
+//           return item
+//         }
+//       }
+//       )
+      
+//       Object.assign(pagesList, {[path]: new MessagePage({
+//         name: nextArr[0].name,
+//         messages: {},
+//         message: '',
+//         areYouOwner: '',
+//         data: '',
+//         id: '',
+//       })});
+//       page = pagesList[path];
+//       }
+
+//       root?.append(page.getContent());
+// })
+
 window.addEventListener('DOMContentLoaded', async () => {
   Router
     .use(Routes.Index, LoginPage)
     .use(Routes.Register, RegisterPage)
     .use(Routes.Profile, ProfilePage)
     .use(Routes.Chat, ChatPage)
+    .use(Routes.ChatList, MessagePage)
+    .use(Routes.ChangeProfile, ChangeProfilePage)
+    .use(Routes.ChangePassword, ChangePasswordPage)
+    .use(Routes.ChangeAvatar, ChangeAvatarPage)
 
   let isProtectedRoute = true;
 

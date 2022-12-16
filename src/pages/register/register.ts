@@ -12,14 +12,15 @@ export class RegisterPage extends Block {
   constructor(props: RegisterPageProps) {
     super('div', props);
     this.setProps({
-      // submit: validateInput,
+      submit: validateInput,
       events: {
-        submit: () => this.onSubmit()
+        submit: (e) => this.onSubmit(e)
       }
     })
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault()
     const values = Object
       .values(this.children)
       .filter(child => child instanceof Input)
@@ -28,6 +29,7 @@ export class RegisterPage extends Block {
     const data = Object.fromEntries(values);
     console.log(data);
     AuthController.signup(data as SignupData);
+    // Router.go('/profile');
   }
 
 render() {
@@ -38,7 +40,7 @@ render() {
         {{/BackButton}}
         <h1 class="login-register__title">{{title}}</h1>
         <div class="login-register__block">
-          <form id="login-form" method="post" onClick="submit">
+          <form id="login-form" action="/profile" method="post" onClick="click">
             <label class="input__label" for="email">Почта</label>
             {{#Input class="input" type="email" name="email" value="Почта" }}
             {{/Input}}

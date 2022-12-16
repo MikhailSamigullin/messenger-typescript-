@@ -1,3 +1,4 @@
+import AuthController from '../../controller/AuthController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
 import * as styles from './link.module.css';
@@ -5,28 +6,38 @@ import * as styles from './link.module.css';
 interface LinkProps extends PropsWithRouter {
   to: string;
   label: string;
-  events?: {
+  type?: string;
+  events: {
     click: () => void;
   };
 }
 
 export class BaseLink extends Block {
   constructor(props: LinkProps) {
-    super('button', {
+    super('span', {
       ...props,
       style: styles,
       events: {
-        click: () => this.navigate()
+        click: (e: any) => {
+          e.preventDefault();
+          AuthController.logout();
+          this.navigate();
+          console.log('navigate')
+        } 
+        
       }
     });
   }
 
+
+
   navigate() {
     this.props.router.go(this.props.to);
+    console.log(Object.entries(this.props) )
   }
 
   render() {
-      return `<a href={{to}} class=${styles.link} onClick={{onClick}}>{{label}}</a>`
+      return `<a class=${styles.link} onClick={{onClick}}>{{label}}</a>`
   }
 }
 

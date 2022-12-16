@@ -25,7 +25,7 @@ export class Button extends Block {
   }
 
   render() {
-      return `<button class="${styles.button}" type="{{type}}" onclick="{{onsubmit}}">
+      return `<button class="${styles.button}" type="{{type}}" onclick="{{onClick}}">
                 {{ label }}
               </button>`
   }

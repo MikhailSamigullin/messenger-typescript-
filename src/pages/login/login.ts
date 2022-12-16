@@ -1,9 +1,9 @@
 import { Block } from '../../utils/Block';
 import { validateInput } from '../../utils/validateInput';
-import Link from '../../components/Link/';
+import { Link } from '../../components/Link/link';
 import AuthController from '../../controller/AuthController';
 import { Input } from '../../components/Input/input';
-import { SigninData, SignupData } from '../../api/AuthApi';
+import { SigninData} from '../../api/AuthApi';
 
 interface LoginPageProps {
   title: string;
@@ -14,22 +14,23 @@ export class LoginPage extends Block {
   constructor(props: LoginPageProps) {
     super('div', props);
     this.setProps({
-      // click: validateInput,
+      submit: validateInput,
       events: {
-        click: () => this.onSubmit()
+        submit: (e) => this.onSubmit(e)
       }
     })
 
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const values = Object
       .values(this.children)
       .filter(child => child instanceof Input)
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values);
-console.log(data);
+    console.log(data);
     AuthController.signin(data as SigninData);
   }
 
@@ -50,14 +51,13 @@ console.log(data);
               {{#Input class="input" type="password" name="password" value="Пароль" onsubmit="onSubmit" required=required}} 
               {{/Input}}
               <span id="password" class="input__error"> </span> 
-              {{#Button class="button" type="button" }}
+              {{#Button class="button" type="submit" }}
                 Авторизоваться
               {{/Button}} 
             </form>  
           </div>
-          {{#Link to="/register" class="login-register__register-link"}}
-          Нет аккаунта?</a>
-          {{/Link}}
+          <a class="login-register__register-link" href="/register">Нет аккаунта?</a>
+
         </div>
     </main>`
   }

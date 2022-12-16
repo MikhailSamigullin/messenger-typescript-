@@ -31,7 +31,7 @@ export class ChatPage extends Block {
 
     return `  
             <main class="chat__container">
-              {{#BackButton href="/login"}}
+              {{#BackButton href="/"}}
               {{/BackButton}}
               <div class="chat-list">
                 <div class="chat-list__profile">
