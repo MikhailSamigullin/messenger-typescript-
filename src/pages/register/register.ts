@@ -2,6 +2,7 @@ import { SignupData } from '../../api/AuthApi';
 import { Input } from '../../components/Input/input';
 import AuthController from '../../controller/AuthController';
 import { Block } from '../../utils/Block';
+import Router from '../../utils/Router';
 import { validateInput } from '../../utils/validateInput';
 
 interface RegisterPageProps {
@@ -29,7 +30,7 @@ export class RegisterPage extends Block {
     const data = Object.fromEntries(values);
     console.log(data);
     AuthController.signup(data as SignupData);
-    // Router.go('/profile');
+    Router.go('/profile');
   }
 
 render() {

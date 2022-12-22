@@ -477,6 +477,22 @@ legend {
   background-color: #fff;
 }
 
+.chat__message-not_mine {
+  width: 70%;
+  background-color: #eaeaea;
+  margin: 10px auto 10px 0;
+  padding: 10px;
+  border-radius: 0 15px 15px 0;
+}
+
+.chat__message_mine {
+  width: 70%;
+  background-color: #e4edfd;
+  padding: 10px;
+  margin: 10px 0 10px auto;
+  border-radius: 15px 0 0 15px;
+}
+
 .chat__footer {
   -webkit-display: flex;
   display: flex;

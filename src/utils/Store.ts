@@ -1,9 +1,19 @@
-import { set } from '../utils/helpers';
+import { set } from './helpers';
 import { EventBus } from './EventBus';
-import {Block} from './Block';
+import { Block } from './Block';
+import { User } from '../api/AuthApi';
+import { ChatInfo } from '../api/ChatsApi';
+import { Message } from '../controller/MessagesController';
 
 export enum StoreEvents {
   Updated = 'updated'
+}
+
+interface State {
+  user: User;
+  chats: ChatInfo[];
+  messages: Record<number, Message[]>;
+  selectedChat?: number;
 }
 
 export class Store extends EventBus {
@@ -22,18 +32,19 @@ export class Store extends EventBus {
 
 const store = new Store();
 
-export function withStore(mapStateToProps: (state: any) => any) {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+window.store = store;
 
-  return function wrap(Component: typeof Block){
-    let previousState: any;
-
+export function withStore<SP>(mapStateToProps: (state: State) => SP) {
+  return function wrap<P>(Component: typeof Block<SP & P>){
 
     return class WithStore extends Component {
 
-      constructor(props: any) {
-        previousState = mapStateToProps(store.getState());
+      constructor(props: Omit<P, keyof SP>) {
+        let previousState = mapStateToProps(store.getState());
 
-        super({ ...props, ...previousState });
+        super({ ...(props as P), ...previousState });
 
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
@@ -42,11 +53,12 @@ export function withStore(mapStateToProps: (state: any) => any) {
 
           this.setProps({ ...stateProps });
         });
+
       }
+
     }
 
   }
-
 }
 
 export default store;

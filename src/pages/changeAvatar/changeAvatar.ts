@@ -8,6 +8,7 @@ import { validateInput } from '../../utils/validateInput';
 
 interface ChangeAvatarPageProps {
   title: string;
+  avatar: any;
 }
 
 export class ChangeAvatarPageBase extends Block {
@@ -23,17 +24,30 @@ export class ChangeAvatarPageBase extends Block {
     })
   }
 
+
+    
+
   onSubmit(e: { preventDefault: () => void; }) {
     e.preventDefault();
     const myUserForm: any = document.getElementById('avatar-form');
-    const avatar1 = document.getElementById('avatar');
+    // const avatar1 = document.getElementById('avatar');
     
     const form: any = new FormData(myUserForm);
     form.append('avatar', 1);
-console.log(myUserForm);
-console.log(avatar1);
-console.log(form);
-console.log(this.props);
+
+
+    console.log(form);
+
+
+
+    // UserController.updateAvatar({ data: formData });
+
+
+
+// console.log(formData);
+// console.log(avatar1);
+// console.log(form);
+// console.log(this.props);
     // const values = Object
     //   .values(this.children)
     //   .filter(child => child instanceof Input)
@@ -42,7 +56,7 @@ console.log(this.props);
     // const data = Object.fromEntries(values);
     // console.log(data);
     // console.log(this.props);
-    UserController.updateAvatar(form);
+    // UserController.updateAvatar(form);
   }
   // class="header__photo"
 render() {
@@ -57,7 +71,7 @@ render() {
       </div>
         <h1 class="login-register__title">{{title}}</h1>
         <div class="login-register__block">
-          <form id="avatar-form" action="/profile" method="put" onClick="click">
+          <form id="avatar-form" action="/profile" method="put" onClick="submit">
 
             <label class="input__label" for="avatar">Выберите новый аватар</label>
             <input class="input" type="file" name="avatar" accept="image/*"/>

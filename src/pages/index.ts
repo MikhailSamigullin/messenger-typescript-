@@ -11,18 +11,19 @@ import { ChangeProfilePage } from "./changeProfile/changeProfile";
 import { Button } from "../components/Button/button";
 import { BackButton } from "../components/BackButton/backButton";
 import { Input } from "../components/Input/input";
-import { ChatCard } from "../components/ChatCard/chatCard";
-import { Message }  from "../components/Message/message";
+import Message  from "../components/Message";
 import { Link }  from "../components/Link/link";
 
 import { registerComponent} from "../utils/registerComponent";
-import { chatList } from '../data/chatList';
 
 import Router from '../utils/Router';
 import store from '../utils/Store';
 import AuthController from '../controller/AuthController';
 import { ChangePasswordPage } from "./changePassword/changePassword";
 import { ChangeAvatarPage } from "./changeAvatar/changeAvatar";
+import Chat from "../components/Chat";
+import ChatList from "../components/ChatList";
+import Messenger from "../components/Messenger";
 
 enum Routes {
   Index = '/',
@@ -32,44 +33,28 @@ enum Routes {
   ChatList = '/chatList',
   ChangeProfile = '/changeProfile',
   ChangePassword = '/changePassword',
-  ChangeAvatar = '/changeAvatar'
+  ChangeAvatar = '/changeAvatar',
+  Message = '/message'
 }
 
 registerComponent('Button', Button as any);
 registerComponent('BackButton', BackButton as any);
 registerComponent('Input', Input as any);
-registerComponent('ChatCard', ChatCard as any);
+// registerComponent('ChatCard', ChatCard as any);
 registerComponent('Message', Message as any);
 registerComponent('Link', Link as any);
+registerComponent('Chat', Chat as any);
+registerComponent('ChatList', ChatList as any);
+registerComponent('Messenger', Messenger as any);
+registerComponent('Message', Message as any);
+
 
 // window.addEventListener('DOMContentLoaded',() => {
 //   const root = document.querySelector('#app') as HTMLDivElement;
 //   const path: string = window.location.pathname;
 //   let page: any;
 
-// // Временный роутинг
-//     const pagesList: any = {
-//       '/': new HomePage({
-//         title: 'Просто.',
-//         titleSub: 'Чат.'}),
-//       '/index': new HomePage({
-//         title: 'Просто.',
-//         titleSub: 'Чат.'}),
-//       '': new HomePage({
-//         title: 'Просто.',
-//         titleSub: 'Чат.'}),
-//       '/login': new LoginPage({
-//         title: 'Вход'}),
-//       '/register': new RegisterPage({
-//         title: 'Регистрация'}),
-//       '/error500': new ErrorPage({
-//         error: '500',
-//         title: 'ОШИБКА!',
-//         description: 'Нет ответа от сервера'}),
-//       '/error404': new ErrorPage({
-//         error: '404',
-//         title: 'ОШИБКА!',
-//         description: 'Ничего не найдено'}),
+
 //       '/chat': new ChatPage({name: '',
 //         yourMessage: '',
 //         chatList: '',
@@ -78,12 +63,7 @@ registerComponent('Link', Link as any);
 //         id: '',
 //         hidden: '',
 //         unreadMessages: '',}),
-//       '/profile': new ProfilePage({
-//         title: ''
-//       }),
-//       '/changeProfile': new ChangeProfilePage({
-//         title: ''
-//       }),
+//       
 //     }
 
 //     if (Object.keys(pagesList).includes(path)) {
@@ -120,6 +100,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.ChangeProfile, ChangeProfilePage)
     .use(Routes.ChangePassword, ChangePasswordPage)
     .use(Routes.ChangeAvatar, ChangeAvatarPage)
+    .use(Routes.Message, MessagePage)
 
   let isProtectedRoute = true;
 
