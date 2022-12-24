@@ -1,7 +1,6 @@
 import AuthController from '../../controller/AuthController';
 import { Block } from '../../utils/Block';
 import { withStore } from '../../utils/Store';
-import { Link } from '../../components/Link/link'
 
 interface ProfilePageProps {
   title: string;
@@ -15,25 +14,20 @@ class ProfilePageBase extends Block {
     this.setProps({
       name: this.props.first_name,
       event: {
-
-
-          
         }
       })
-      
   }
 
-
-
   render() {
-    console.log(this.props.avatar);
     return `  
       <div class="profile__container">
         {{#BackButton href="/chat"}}
         {{/BackButton}}
         <div class="profile">
           <div class="header">
-            <a href="/changeAvatar" class="header__photo"></a>
+            <a href="/changeAvatar" class="header__photo">
+            <img src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" alt="photo" />
+            </a>
             <span class="header__name">Привет, ${this.props.first_name}!</span>
           </div>
         <div class="profile-info">
@@ -69,13 +63,9 @@ class ProfilePageBase extends Block {
             <li><a href="/changeProfile" class="footer__change-info">Изменить данные</a></li>
             <li><a href="/changePassword" class="footer__change-info">Изменить пароль</a></li>
             <li>
-            
-            {{#Link  class="footer__logout" onClick="click" to="/"}}
-            Выйти
-          {{/Link}}
-
-
-          
+              {{#Link  class="footer__logout" onClick="click" to="/"}}
+                Выйти
+              {{/Link}}
             </li>
           </ul>
         </nav>
@@ -85,6 +75,4 @@ class ProfilePageBase extends Block {
 }
 
 const withUser: any = withStore((state) => ({ ...state.user }))
-
 export const ProfilePage = withUser(ProfilePageBase);
-

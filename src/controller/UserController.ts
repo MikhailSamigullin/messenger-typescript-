@@ -1,14 +1,11 @@
-import store from '../utils/Store';
 import Router from '../utils/Router';
 import API, { UserAPI, User } from '../api/UserApi';
 
 export class UserController {
   private readonly api: UserAPI;
-
   constructor() {
     this.api = API;
   }
-
 
   async updateAvatar(data: User) {
     try {
@@ -36,7 +33,6 @@ export class UserController {
       console.error(e);
     }
   }
-
 }
 
 export default new UserController();

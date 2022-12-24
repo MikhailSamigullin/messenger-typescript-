@@ -21,17 +21,16 @@ export class UserAPI extends BaseAPI {
   }
 
   updateAvatar(data: User) {
-    return this.http.put('/profile/avatar', data)
+    return this.http.put('/profile/avatar', data);
   }
 
   updatePassword(data: User) {
-    return this.http.put('/password', data)
+    return this.http.put('/password', data);
   }
 
   updateProfile(data: User) {
     return this.http.put('/profile', data);
   }
-
 
   create = undefined;
   update = undefined;
@@ -39,5 +38,3 @@ export class UserAPI extends BaseAPI {
 }
 
 export default new UserAPI();
-
-

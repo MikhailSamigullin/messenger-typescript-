@@ -20,20 +20,15 @@ export interface Message {
 
 class MessagesController {
   private sockets: Map<number, WSTransport> = new Map();
-
   async connect(id: number, token: string) {
     if (this.sockets.has(id)) {
       return;
     }
 
     const userId = store.getState().user.id;
-
     const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
-
     this.sockets.set(id, wsTransport);
-
     await wsTransport.connect();
-
     this.subscribe(wsTransport, id);
     this.fetchOldMessages(id);
   }
@@ -75,9 +70,7 @@ class MessagesController {
     }
 
     const currentMessages = (store.getState().messages || {})[id] || [];
-
     messagesToAdd = [...currentMessages, ...messagesToAdd];
-
     store.set(`messages.${id}`, messagesToAdd);
   }
 
@@ -86,14 +79,12 @@ class MessagesController {
   }
 
   private subscribe(transport: WSTransport, id: number) {
-    transport.on(WSTransportEvents.Message, (message) => this.onMessage(id, message));
+    transport.on(WSTransportEvents.Message, (message: any) => this.onMessage(id, message));
     transport.on(WSTransportEvents.Close, () => this.onClose(id));
   }
 }
 
-
 const controller = new MessagesController();
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 window.messagesController = controller;

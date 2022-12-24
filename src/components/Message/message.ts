@@ -18,7 +18,6 @@ export class Message extends Block {
   }
 
   render() {
-    // console.log(this.style);
     return `
     <div class="{{ styles.message }} {{#if isMine}} {{ styles.message--mine }} {{/if}}">
     {{ content }}
@@ -26,4 +25,3 @@ export class Message extends Block {
     `
   }
 }
-

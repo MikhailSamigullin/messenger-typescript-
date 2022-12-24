@@ -21,10 +21,4 @@ function isEqual(a: any, b: any): boolean {
     return object != null && typeof object === 'object';
   }
   
-  
-  
   export default isEqual
-  
-  const a = {a: 1};
-  const b = {a: 1};
-  isEqual(a, b); // true

@@ -4,23 +4,19 @@ import MessagesController from './MessagesController';
 
 class ChatsController {
   private readonly api: ChatsAPI;
-
   constructor() {
     this.api = API;
   }
 
   async create(title: string) {
     await this.api.create(title);
-
     this.fetchChats();
   }
 
   async fetchChats() {
     const chats = await this.api.read();
-
     chats.map(async (chat) => {
       const token = await this.getToken(chat.id);
-
       await MessagesController.connect(chat.id, token);
     });
 
@@ -31,9 +27,12 @@ class ChatsController {
     this.api.addUsers(id, [userId]);
   }
 
+  deleteUserFromChat(id: number, userId: number) {
+    this.api.deleteUsers(id, [userId]);
+  }
+
   async delete(id: number) {
     await this.api.delete(id);
-
     this.fetchChats();
   }
 
@@ -47,7 +46,6 @@ class ChatsController {
 }
 
 const controller = new ChatsController();
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 window.chatsController = controller;

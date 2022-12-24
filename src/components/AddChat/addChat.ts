@@ -1,9 +1,9 @@
-import AuthController from '../../controller/AuthController';
+import ChatController from '../../controller/ChatController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
 import * as styles from './link.module.css';
 
-interface LinkProps extends PropsWithRouter {
+interface AddChatProps extends PropsWithRouter {
   to: string;
   label: string;
   type?: string;
@@ -12,17 +12,19 @@ interface LinkProps extends PropsWithRouter {
   };
 }
 
-export class BaseLink extends Block {
-  constructor(props: LinkProps) {
-    super('span', {
+export class AddChatBase extends Block {
+  constructor(props: AddChatProps) {
+    super('a', {
       ...props,
       style: styles,
       events: {
         click: (e: any) => {
           e.preventDefault();
-          AuthController.logout();
+          let titleChat: any = '';
+          titleChat = prompt('Введите название чата');
           this.navigate();
-          console.log('navigate')
+          console.log(titleChat);
+          ChatController.create(titleChat);
         } 
       }
     });
@@ -34,8 +36,8 @@ export class BaseLink extends Block {
   }
 
   render() {
-      return `<a class=${styles.link} onClick={{onClick}}>{{label}}</a>`
+      return `<a class=chat-list__add-button onClick={{onClick}}>{{label}}</a>`
   }
 }
 
-export const Link = withRouter(BaseLink);
+export const AddChat = withRouter(AddChatBase);

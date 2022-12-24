@@ -15,12 +15,12 @@ export class RegisterPage extends Block {
     this.setProps({
       submit: validateInput,
       events: {
-        submit: (e) => this.onSubmit(e)
+        submit: (e: SubmitEvent) => this.onSubmit(e)
       }
     })
   }
 
-  onSubmit(e) {
+  onSubmit(e: SubmitEvent) {
     e.preventDefault()
     const values = Object
       .values(this.children)
@@ -30,7 +30,7 @@ export class RegisterPage extends Block {
     const data = Object.fromEntries(values);
     console.log(data);
     AuthController.signup(data as SignupData);
-    Router.go('/profile');
+    Router.go('/chat');
   }
 
 render() {

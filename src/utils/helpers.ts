@@ -3,7 +3,8 @@ export type Indexed<T = any> = {
 };
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  for (let p in rhs) {
+  for (const p in rhs) {
+    // eslint-disable-next-line no-prototype-builtins
     if (!rhs.hasOwnProperty(p)) {
       continue;
     }
@@ -18,7 +19,6 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
       lhs[p] = rhs[p];
     }
   }
-
   return lhs;
 }
 

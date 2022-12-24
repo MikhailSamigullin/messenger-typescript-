@@ -1,6 +1,5 @@
 import { Block } from '../../utils/Block';
 import { validateInput } from '../../utils/validateInput';
-import { Link } from '../../components/Link/link';
 import AuthController from '../../controller/AuthController';
 import { Input } from '../../components/Input/input';
 import { SigninData} from '../../api/AuthApi';
@@ -16,21 +15,18 @@ export class LoginPage extends Block {
     this.setProps({
       submit: validateInput,
       events: {
-        submit: (e) => this.onSubmit(e)
+        submit: (e: SubmitEvent) => this.onSubmit(e)
       }
     })
-
   }
 
-  onSubmit(e) {
+  onSubmit(e: SubmitEvent) {
     e.preventDefault();
     const values = Object
       .values(this.children)
       .filter(child => child instanceof Input)
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
-
     const data = Object.fromEntries(values);
-    console.log(data);
     AuthController.signin(data as SigninData);
   }
 
@@ -57,7 +53,6 @@ export class LoginPage extends Block {
             </form>  
           </div>
           <a class="login-register__register-link" href="/register">Нет аккаунта?</a>
-
         </div>
     </main>`
   }

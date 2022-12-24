@@ -16,6 +16,17 @@
 - Handlebars: use .hbs files and partials
 - Node + Express: distribute static files
 
+## Third sprint.
+### Here's used:
+- SASS: scss sintax
+- Stylelint for standart style scss
+- ESlint - one style for JS and TS files
+- Parsel: create folder '/dist' for deploy
+- Handlebars: use .hbs files and partials
+- Node + Express: distribute static files
+- Mocha and Chai for future tests
+- WebSockets: open chanel in chat and sending messages
+
 ### Run Stylelint on all the SCSS files in project:
 npm run lint
 

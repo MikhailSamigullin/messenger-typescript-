@@ -1,5 +1,3 @@
-import HomePage from "../pages/home";
-
 import { LoginPage } from "./login/login";
 import { RegisterPage } from "./register/register";
 import { ErrorPage } from "./error/error";
@@ -7,23 +5,25 @@ import { ChatPage } from "./chat/chat";
 import { MessagePage } from "./message/message";
 import { ProfilePage } from "./profile/profile";
 import { ChangeProfilePage } from "./changeProfile/changeProfile";
+import { ChangePasswordPage } from "./changePassword/changePassword";
+import { ChangeAvatarPage } from "./changeAvatar/changeAvatar";
 
 import { Button } from "../components/Button/button";
 import { BackButton } from "../components/BackButton/backButton";
 import { Input } from "../components/Input/input";
 import Message  from "../components/Message";
 import { Link }  from "../components/Link/link";
+import DeleteLink  from "../components/DeleteLink";
+import AddChat  from "../components/AddChat";
+import Chat from "../components/Chat";
+import ChatList from "../components/ChatList";
+import Messenger from "../components/Messenger";
+import Modal from "../components/Modal";
 
 import { registerComponent} from "../utils/registerComponent";
 
 import Router from '../utils/Router';
-import store from '../utils/Store';
 import AuthController from '../controller/AuthController';
-import { ChangePasswordPage } from "./changePassword/changePassword";
-import { ChangeAvatarPage } from "./changeAvatar/changeAvatar";
-import Chat from "../components/Chat";
-import ChatList from "../components/ChatList";
-import Messenger from "../components/Messenger";
 
 enum Routes {
   Index = '/',
@@ -40,55 +40,15 @@ enum Routes {
 registerComponent('Button', Button as any);
 registerComponent('BackButton', BackButton as any);
 registerComponent('Input', Input as any);
-// registerComponent('ChatCard', ChatCard as any);
 registerComponent('Message', Message as any);
 registerComponent('Link', Link as any);
+registerComponent('DeleteLink', DeleteLink as any);
 registerComponent('Chat', Chat as any);
 registerComponent('ChatList', ChatList as any);
 registerComponent('Messenger', Messenger as any);
 registerComponent('Message', Message as any);
-
-
-// window.addEventListener('DOMContentLoaded',() => {
-//   const root = document.querySelector('#app') as HTMLDivElement;
-//   const path: string = window.location.pathname;
-//   let page: any;
-
-
-//       '/chat': new ChatPage({name: '',
-//         yourMessage: '',
-//         chatList: '',
-//         lastMessage: '',
-//         data: '',
-//         id: '',
-//         hidden: '',
-//         unreadMessages: '',}),
-//       
-//     }
-
-//     if (Object.keys(pagesList).includes(path)) {
-//       page = pagesList[path];
-//       } else {
-//       const nextArr = Object.values(chatList).filter((item) => {
-//         if (item.id === path.slice(1)) {
-//           return item
-//         }
-//       }
-//       )
-      
-//       Object.assign(pagesList, {[path]: new MessagePage({
-//         name: nextArr[0].name,
-//         messages: {},
-//         message: '',
-//         areYouOwner: '',
-//         data: '',
-//         id: '',
-//       })});
-//       page = pagesList[path];
-//       }
-
-//       root?.append(page.getContent());
-// })
+registerComponent('AddChat', AddChat as any);
+registerComponent('Modal', Modal as any);
 
 window.addEventListener('DOMContentLoaded', async () => {
   Router
@@ -117,7 +77,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     Router.start();
 
     if (!isProtectedRoute) {
-      Router.go(Routes.Profile)
+      Router.go(Routes.Chat)
     }
   } catch (e) {
     Router.start();

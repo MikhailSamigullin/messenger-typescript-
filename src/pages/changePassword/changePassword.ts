@@ -56,7 +56,7 @@ render() {
             <span id="newPassword" class="input__error"> </span>
 
             {{#Button type="submit" }}
-            Сохранить
+              Сохранить
             {{/Button}}
           </form>
         </div>
@@ -65,5 +65,4 @@ render() {
   }
 }
 const withUser: any = withStore((state) => ({ ...state.user }))
-
 export const ChangePasswordPage = withUser(ChangePasswordPageBase);
