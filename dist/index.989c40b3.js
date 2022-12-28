@@ -633,15 +633,12 @@ class LoginPage extends (0, _block.Block) {
                 child.getValue()
             ]);
         const data = Object.fromEntries(values);
-        console.log(data);
         (0, _authControllerDefault.default).signin(data);
     }
     render() {
         return `   
       <main class="login__container">
         <div class="login-register">
-          {{#BackButton href="../"}}
-          {{/BackButton}}
           <h1 class="login-register__title">{{title}}</h1>
           <div class="login-register__block">
             <form id="login-form" action="/chat" method="post" onClick="click">
@@ -658,7 +655,9 @@ class LoginPage extends (0, _block.Block) {
               {{/Button}} 
             </form>  
           </div>
-          <a class="login-register__register-link" href="/register">Нет аккаунта?</a>
+          {{#Link  class="login-register__register-link" onClick="click" to="/register"}}
+            Нет аккаунта?
+          {{/Link}}
         </div>
     </main>`;
     }
@@ -12360,7 +12359,7 @@ class AuthController {
         try {
             await this.api.signin(data);
             await this.fetchUser();
-            (0, _routerDefault.default).go("/profile");
+            (0, _routerDefault.default).go("/chat");
         } catch (e) {
             console.error(e);
         }
@@ -12369,7 +12368,7 @@ class AuthController {
         try {
             await this.api.signup(data);
             await this.fetchUser();
-            (0, _routerDefault.default).go("/profile");
+            (0, _routerDefault.default).go("/chat");
         } catch (e) {
             console.error(e.message);
         }
@@ -12447,42 +12446,41 @@ class HTTPTransport {
     constructor(endpoint){
         this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
     }
-    get(path = "/") {
+    get = (path = "/")=>{
         return this.request(this.endpoint + path);
-    }
-    post(path, data) {
+    };
+    post = (path, data)=>{
         return this.request(this.endpoint + path, {
             method: Method.Post,
             data
         });
-    }
-    put(path, data) {
+    };
+    put = (path, data)=>{
         return this.request(this.endpoint + path, {
             method: Method.Put,
             data
         });
-    }
-    patch(path, data) {
+    };
+    patch = (path, data)=>{
         return this.request(this.endpoint + path, {
             method: Method.Patch,
             data
         });
-    }
-    delete(path, data) {
+    };
+    delete = (path, data)=>{
         return this.request(this.endpoint + path, {
             method: Method.Delete,
             data
         });
-    }
-    request(url, options = {
+    };
+    request = (url, options = {
         method: Method.Get
-    }) {
-        const { method , data , isFile  } = options;
-        console.log(isFile);
+    })=>{
+        const { method , data  } = options;
         return new Promise((resolve, reject)=>{
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
-            xhr.onreadystatechange = (e)=>{
+            xhr.onreadystatechange = ()=>{
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status < 400) resolve(xhr.response);
                     else reject(xhr.response);
@@ -12504,7 +12502,7 @@ class HTTPTransport {
             if (method === Method.Get || !data) xhr.send();
             else xhr.send(data instanceof FormData ? data : JSON.stringify(data));
         });
-    }
+    };
 }
 exports.default = HTTPTransport;
 
@@ -12793,7 +12791,8 @@ exports.default = WSTransport;
 },{"./EventBus":"iVvKU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bl4Uw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Input", ()=>Input);
+parcelHelpers.export(exports, "Input", ()=>Input) // required={{required}}
+;
 var _block = require("../../utils/Block");
 var _inputModuleCss = require("./input.module.css");
 var _validateInput = require("../../utils/validateInput");
@@ -12818,15 +12817,15 @@ class Input extends (0, _block.Block) {
         return this.element.value;
     }
     render() {
-        return `<input class=${_inputModuleCss.input} type={{type}} name={{name}} placeholder={{value}} required={{required}}>`;
+        return `<input class=${_inputModuleCss.input} type={{type}} name={{name}} placeholder={{value}} value={{oldValue}} >`;
     }
 }
 
 },{"../../utils/Block":"915bj","./input.module.css":"9C8Mv","../../utils/validateInput":"gFk3A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9C8Mv":[function(require,module,exports) {
-module.exports["input__error"] = `_9A2c3a_input__error`;
-module.exports["input"] = `_9A2c3a_input`;
-module.exports["input__label"] = `_9A2c3a_input__label`;
 module.exports["input__text"] = `_9A2c3a_input__text`;
+module.exports["input__error"] = `_9A2c3a_input__error`;
+module.exports["input__label"] = `_9A2c3a_input__label`;
+module.exports["input"] = `_9A2c3a_input`;
 
 },{}],"fyNpG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -12864,7 +12863,7 @@ class RegisterPage extends (0, _block.Block) {
         return `  
     <main class="login__container">
       <div class="login-register">
-        {{#BackButton href="/login"}}
+        {{#BackButton href="/"}}
         {{/BackButton}}
         <h1 class="login-register__title">{{title}}</h1>
         <div class="login-register__block">
@@ -12936,15 +12935,16 @@ class ChatPage extends (0, _block.Block) {
     render() {
         return `  
     <main class="chat__container">
-      {{#BackButton href="/"}}
-      {{/BackButton}}
       <div class="chat-list">
         <div class="chat-list__profile">
           {{#AddChat class="chat-list__add-button"}}
             + Новый чат
           {{/AddChat}}
           
-          <a href="/profile" class="">Профиль</a>
+
+          {{#Link  class="" onClick="click" to="/profile"}}
+          Профиль
+            {{/Link}}
         </div>
         <div class="chat-list__search">
           <input type="search" 
@@ -12981,8 +12981,8 @@ var _chatListModuleCss = require("./chatList.module.css");
 var _store = require("../../utils/Store");
 var _chatController = require("../../controller/ChatController");
 var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
-var _index1 = require("../Link/index");
-var _indexDefault1 = parcelHelpers.interopDefault(_index1);
+var _router = require("../../utils/Router");
+var _routerDefault = parcelHelpers.interopDefault(_router);
 class ChatsListBase extends (0, _block.Block) {
     constructor(props){
         super("div", {
@@ -12994,15 +12994,28 @@ class ChatsListBase extends (0, _block.Block) {
             avatar: props.avatar,
             created_by: props.created,
             unread_count: props.unread,
-            events: {}
+            events: {
+                click: (e)=>{
+                    e.preventDefault();
+                    const path = e.target.name;
+                    let title = "";
+                    let avatar = "";
+                    (0, _chatControllerDefault.default).selectChat(+path);
+                    const arr = this.props.chats.map((item)=>{
+                        if (item.id === +path) {
+                            title = item.title;
+                            avatar = item.avatar;
+                        }
+                    });
+                    (0, _chatControllerDefault.default).selectTitle(title);
+                    (0, _chatControllerDefault.default).selectAvatar(avatar);
+                    (0, _routerDefault.default).go(`/message`);
+                }
+            }
         });
     }
     init() {
         this.children.chats = this.createChats(this.props);
-        this.children.profileLink = new (0, _indexDefault1.default)({
-            to: "/profile",
-            label: "Профиль"
-        });
     }
     componentDidUpdate(oldProps, newProps) {
         this.children.chats = this.createChats(newProps);
@@ -13027,20 +13040,26 @@ class ChatsListBase extends (0, _block.Block) {
 <div>
         <aside class="{{ styles.chats-list }}">
     {{#if ${this.props.isLoaded} }}
-    {{#each chats}}
-            <div class="list">
-            <div class="list__item">
-              <a href="/message?{{this.id}}" class="list__photo"></a>
-              <div class="list__chat">
-                <a href="/message?{{this.id}}" class="list__name">{{this.title}}</a>
-                <a href="/message?{{this.id}}" class="list__last-message"><span> {{this.last_message.user.first_name}}</span> :{{this.last_message.content}}</a>
-              </div>
-              <div class="list__info">
-                <div class="list__data">{{this.created}}</div>
-              </div>
+      {{#each chats}}
+        <div class="list">
+          <div class="list__item">
+            <a name="{{this.id}}" class="list__photo" onclick="click">
+              {{#if this.avatar}}
+                <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/{{this.avatar}}" class="list__photo"></img>
+              {{else}}
+                <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/235bb159-2395-4edc-8491-f9e23fdb415c/490c1b74-5407-4ea4-853d-33a1a797c0f1_pngtree-no-photo-selfie-icon-image_1267182.jpg" class="list__photo"></img>
+              {{/if}}
+            </a>
+            <div class="list__chat">
+              <a name="{{this.id}}" class="list__name">{{this.title}}</a>
+              <a name="{{this.id}}" class="list__last-message"><span> {{this.last_message.user.first_name}}</span> :{{this.last_message.content}}</a>
+            </div>
+            <div class="list__info">
+              <div class="list__data" name="{{this.id}}"></div>
             </div>
           </div>
-        {{/each}}
+        </div>
+      {{/each}}
     {{else}}
       Loading...
     {{/if}}
@@ -13052,11 +13071,12 @@ class ChatsListBase extends (0, _block.Block) {
 const withChats = (0, _store.withStore)((state)=>({
         chats: [
             ...state.chats || []
-        ]
+        ],
+        selectedChat: (state.chats || []).find(({ id  })=>id === state.selectedChat)
     }));
 const ChatsList = withChats(ChatsListBase);
 
-},{"../../utils/Block":"915bj","../Chat/index":"9hMaM","./chatList.module.css":"kjg7W","../../utils/Store":"euxgo","../../controller/ChatController":"3Zbkh","../Link/index":"gyOYB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9hMaM":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","../Chat/index":"9hMaM","./chatList.module.css":"kjg7W","../../utils/Store":"euxgo","../../controller/ChatController":"3Zbkh","../../utils/Router":"lWot6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9hMaM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _chat.Chat));
@@ -13097,26 +13117,26 @@ const withSelectedChat = (0, _store.withStore)((state)=>({
 const Chat = withSelectedChat(ChatBase);
 
 },{"../../utils/Block":"915bj","./chat.module.css":"hLr6S","../../utils/Store":"euxgo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hLr6S":[function(require,module,exports) {
-module.exports["list__data"] = `AKaJIW_list__data`;
-module.exports["list__item"] = `AKaJIW_list__item`;
 module.exports["list__chat"] = `AKaJIW_list__chat`;
-module.exports["list"] = `AKaJIW_list`;
-module.exports["list__name"] = `AKaJIW_list__name`;
-module.exports["list__unread-messages"] = `AKaJIW_list__unread-messages`;
-module.exports["list__last-message"] = `AKaJIW_list__last-message`;
-module.exports["list__info"] = `AKaJIW_list__info`;
 module.exports["list__photo"] = `AKaJIW_list__photo`;
+module.exports["list__item"] = `AKaJIW_list__item`;
+module.exports["list__info"] = `AKaJIW_list__info`;
+module.exports["list__last-message"] = `AKaJIW_list__last-message`;
+module.exports["list__name"] = `AKaJIW_list__name`;
+module.exports["list"] = `AKaJIW_list`;
+module.exports["list__data"] = `AKaJIW_list__data`;
+module.exports["list__unread-messages"] = `AKaJIW_list__unread-messages`;
 
 },{}],"kjg7W":[function(require,module,exports) {
-module.exports["list"] = `_w3KHa_list`;
 module.exports["list__photo"] = `_w3KHa_list__photo`;
 module.exports["list__name"] = `_w3KHa_list__name`;
+module.exports["list"] = `_w3KHa_list`;
+module.exports["list__last-message"] = `_w3KHa_list__last-message`;
 module.exports["list__item"] = `_w3KHa_list__item`;
+module.exports["list__data"] = `_w3KHa_list__data`;
+module.exports["list__unread-messages"] = `_w3KHa_list__unread-messages`;
 module.exports["list__chat"] = `_w3KHa_list__chat`;
 module.exports["list__info"] = `_w3KHa_list__info`;
-module.exports["list__last-message"] = `_w3KHa_list__last-message`;
-module.exports["list__unread-messages"] = `_w3KHa_list__unread-messages`;
-module.exports["list__data"] = `_w3KHa_list__data`;
 
 },{}],"3Zbkh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13162,6 +13182,12 @@ class ChatsController {
     }
     selectChat(id) {
         (0, _storeDefault.default).set("selectedChat", id);
+    }
+    selectAvatar(avatar) {
+        (0, _storeDefault.default).set("selectedAvatar", avatar);
+    }
+    selectTitle(title) {
+        (0, _storeDefault.default).set("selectedTitle", title);
     }
 }
 const controller = new ChatsController();
@@ -13216,68 +13242,7 @@ class ChatsAPI extends (0, _baseApiDefault.default) {
 }
 exports.default = new ChatsAPI();
 
-},{"./BaseApi":"61JyP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gyOYB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>(0, _link.Link));
-var _link = require("./link");
-
-},{"./link":"6YVTP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6YVTP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "BaseLink", ()=>BaseLink);
-parcelHelpers.export(exports, "Link", ()=>Link);
-var _authController = require("../../controller/AuthController");
-var _authControllerDefault = parcelHelpers.interopDefault(_authController);
-var _withRouter = require("../../hocs/withRouter");
-var _block = require("../../utils/Block");
-var _linkModuleCss = require("./link.module.css");
-class BaseLink extends (0, _block.Block) {
-    constructor(props){
-        super("span", {
-            ...props,
-            style: _linkModuleCss,
-            events: {
-                click: (e)=>{
-                    e.preventDefault();
-                    (0, _authControllerDefault.default).logout();
-                    this.navigate();
-                    console.log("navigate");
-                }
-            }
-        });
-    }
-    navigate() {
-        this.props.router.go(this.props.to);
-        console.log(Object.entries(this.props));
-    }
-    render() {
-        return `<a class=${_linkModuleCss.link} onClick={{onClick}}>{{label}}</a>`;
-    }
-}
-const Link = (0, _withRouter.withRouter)(BaseLink);
-
-},{"../../controller/AuthController":"2RQcx","../../hocs/withRouter":"kYXgc","../../utils/Block":"915bj","./link.module.css":"3EGhU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kYXgc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "withRouter", ()=>withRouter);
-var _router = require("../utils/Router");
-var _routerDefault = parcelHelpers.interopDefault(_router);
-function withRouter(Component) {
-    return class WithRouter extends Component {
-        constructor(props){
-            super({
-                ...props,
-                router: (0, _routerDefault.default)
-            });
-        }
-    };
-}
-
-},{"../utils/Router":"lWot6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3EGhU":[function(require,module,exports) {
-module.exports["link"] = `_922y4a_link`;
-
-},{}],"1O6mj":[function(require,module,exports) {
+},{"./BaseApi":"61JyP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1O6mj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _messenger.Messenger));
@@ -13341,6 +13306,7 @@ class MessengerBase extends (0, _block.Block) {
         });
     }
     render() {
+        // console.log(this.props)
         return `
     <div>
       {{#each messages}}
@@ -13362,6 +13328,7 @@ const withSelectedChatMessages = (0, _store.withStore)((state)=>{
         selectedChat: undefined,
         userId: state.user.id
     };
+    console.log(state);
     return {
         messages: (state.messages || {})[selectedChatId] || [],
         selectedChat: state.selectedChat,
@@ -13371,9 +13338,9 @@ const withSelectedChatMessages = (0, _store.withStore)((state)=>{
 const Messenger = withSelectedChatMessages(MessengerBase);
 
 },{"../../utils/Block":"915bj","./messenger.module.css":"ccVzj","../Message/index":"5cdWT","../../controller/MessagesController":"2lLua","../../utils/Store":"euxgo","../Chat":"9hMaM","../../controller/ChatController":"3Zbkh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ccVzj":[function(require,module,exports) {
-module.exports["message__data"] = `T9lanW_message__data`;
-module.exports["message__answer"] = `T9lanW_message__answer`;
 module.exports["message"] = `T9lanW_message`;
+module.exports["message__answer"] = `T9lanW_message__answer`;
+module.exports["message__data"] = `T9lanW_message__data`;
 
 },{}],"5cdWT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13405,9 +13372,9 @@ class Message extends (0, _block.Block) {
 }
 
 },{"../../utils/Block":"915bj","./message.module.css":"57hxF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"57hxF":[function(require,module,exports) {
-module.exports["message__answer"] = `PedFKq_message__answer`;
-module.exports["message"] = `PedFKq_message`;
 module.exports["message__data"] = `PedFKq_message__data`;
+module.exports["message"] = `PedFKq_message`;
+module.exports["message__answer"] = `PedFKq_message__answer`;
 
 },{}],"duO4O":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -13437,7 +13404,7 @@ class MessageBase extends (0, _block.Block) {
             ...props,
             isLoaded: props.isLoaded,
             id: props.id,
-            title: props.messages[0],
+            title: props.title,
             avatar: props.avatar,
             created_by: props.created,
             unread_count: props.unread,
@@ -13447,19 +13414,25 @@ class MessageBase extends (0, _block.Block) {
             events: {
                 submit: (e)=>{
                     e.preventDefault();
-                    const path = +window.location.search.slice(1);
+                    const path = +this.props.selectedChat;
                     const input = document.querySelector('input[name="message"]');
                     const value = input.value;
-                    if (value) (0, _messagesControllerDefault.default).sendMessage(path, value);
+                    if (value) {
+                        console.log(`В чат ${path} отправляем сообщение: ${value}`);
+                        (0, _messagesControllerDefault.default).sendMessage(path, value);
+                    }
                     input.value = "";
                     const inputName = document.querySelector('input[name="name"]');
                     const valueName = inputName.value;
-                    if (valueName) (0, _chatControllerDefault.default).addUserToChat(path, +valueName);
+                    if (valueName) {
+                        console.log(`В чат ${path} добавляем пользователя ${valueName}`);
+                        (0, _chatControllerDefault.default).addUserToChat(path, +valueName);
+                    }
                     inputName.value = "";
                     const inputId = document.querySelector('input[name="id_user"]');
                     const valueId = inputId.value;
                     if (valueId) {
-                        console.log(valueId);
+                        console.log(`Из чата ${path} удаляем пользователя ${valueId}`);
                         (0, _chatControllerDefault.default).deleteUserFromChat(path, +valueId);
                     }
                     inputId.value = "";
@@ -13498,27 +13471,27 @@ class MessageBase extends (0, _block.Block) {
             this.children.chatsList.setProps({
                 isLoaded: true
             });
-            (0, _chatControllerDefault.default).fetchChats();
+            console.log(this.props);
         });
     }
     render() {
-        let title = "";
-        const path = +window.location.search.slice(1);
-        const arr = this.props.chats.filter((item)=>{
-            if (item.id === path) title = item.title;
-        });
+        // console.log(this.props)
         return `  
       <main class="chat">
         <div class="chat__header">
           {{#BackButton href="/chat"}}
           {{/BackButton}}
-          <a href="#" class="chat__photo"></a>
-          <a href="#" class="chat__name">${title}</a>
+          {{#if this.avatar}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" class="chat__photo"></img>
+            {{else}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/235bb159-2395-4edc-8491-f9e23fdb415c/490c1b74-5407-4ea4-853d-33a1a797c0f1_pngtree-no-photo-selfie-icon-image_1267182.jpg" class="chat__photo"></img>
+            {{/if}}
+          <a href="#" class="chat__name">${this.props.title}</a>
           {{#each this.messages}}
             {{this.title}}
           {{/each}}
 
-          {{#Modal}}
+          {{#Modal chatId="${this.props.selectedChat}"}}
           {{/Modal}}
 
         </div>
@@ -13551,14 +13524,19 @@ class MessageBase extends (0, _block.Block) {
   `;
     }
 }
-const path = +window.location.search.slice(1);
-const withChats = (0, _store.withStore)((state)=>({
+const withChats = (0, _store.withStore)((state)=>{
+    const selectedChatId = state.selectedChat;
+    return {
         chats: [
             ...state.chats || []
         ],
-        messages: (state.messages || {})[path] || [],
-        userId: state.user.id
-    }));
+        userId: state.user.id,
+        messages: (state.messages || {})[selectedChatId] || [],
+        selectedChat: state.selectedChat,
+        avatar: state.selectedAvatar,
+        title: state.selectedTitle
+    };
+});
 (0, _handlebarsDefault.default).registerHelper("ifCond", function(v1, v2, options) {
     if (v1 === v2) // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -13588,14 +13566,15 @@ class ProfilePageBase extends (0, _block.Block) {
     }
     render() {
         return `  
-      <div class="profile__container">
+      <div class="login__container">
         {{#BackButton href="/chat"}}
         {{/BackButton}}
-        <div class="profile">
+        <div class="login-register">
           <div class="header">
-            <a href="/changeAvatar" class="header__photo">
+            {{#Link  class="header__photo" onClick="click" to="/changeAvatar"}}
+              
             <img src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" alt="photo" />
-            </a>
+            {{/Link}}
             <span class="header__name">Привет, ${this.props.first_name}!</span>
           </div>
         <div class="profile-info">
@@ -13628,8 +13607,14 @@ class ProfilePageBase extends (0, _block.Block) {
         </div>
         <nav class="footer">
           <ul>
-            <li><a href="/changeProfile" class="footer__change-info">Изменить данные</a></li>
-            <li><a href="/changePassword" class="footer__change-info">Изменить пароль</a></li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changeProfile"}}
+                Изменить данные
+              {{/Link}}</li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changePassword"}}
+                Изменить пароль
+              {{/Link}}</li>
             <li>
               {{#Link  class="footer__logout" onClick="click" to="/"}}
                 Выйти
@@ -13664,6 +13649,13 @@ class ChangeProfilePageBase extends (0, _block.Block) {
         super("div", props);
         (0, _authControllerDefault.default).fetchUser();
         this.setProps({
+            ...props,
+            email: this.props.email,
+            login: this.props.login,
+            first_name: this.props.first_name,
+            nickname: this.props.display_name === null ? `${this.props.first_name}_${this.props.second_name}` : this.props.display_name,
+            second_name: this.props.second_name,
+            phone: this.props.phone,
             submit: (0, _validateInput.validateInput),
             events: {
                 submit: (e)=>this.onSubmit(e)
@@ -13690,27 +13682,27 @@ class ChangeProfilePageBase extends (0, _block.Block) {
         <div class="login-register__block">
           <form id="login-form" action="/profile" method="post" onClick="click">
             <label class="input__label" for="email">Почта</label>
-            {{#Input class="input" type="email" name="email" value="Почта" }}
+            {{#Input class="input" type="email" name="email" value="Почта" oldValue=email }}
             {{/Input}}
             <span id="email" class="input__error"> </span>
             <label class="input__label" for="login">Логин</label>
-            {{#Input class="input" type="text" name="login" value="Логин" }}
+            {{#Input class="input" type="text" name="login" value="Логин" oldValue=login }}
             {{/Input}}
             <span id="login" class="input__error"> </span>
             <label class="input__label" for="first_name">Имя</label>
-            {{#Input class="input" type="text" name="first_name" value="Имя" }}
+            {{#Input class="input" type="text" name="first_name" value="Имя" oldValue=first_name }}
             {{/Input}}
             <span id="first_name" class="input__error"> </span>
             <label class="input__label" for="second_name">Фамилия</label>
-            {{#Input class="input" type="text" name="second_name" value="Фамилия" }} 
+            {{#Input class="input" type="text" name="second_name" value="Фамилия" oldValue=second_name }} 
             {{/Input}}
             <span id="second_name" class="input__error"> </span>
-            <label class="input__label" for="display_name">Фамилия</label>
-            {{#Input class="input" type="text" name="display_name" value="Никнейм" }} 
+            <label class="input__label" for="display_name">Никнейм</label>
+            {{#Input class="input" type="text" name="display_name" value="Никнейм" oldValue=nickname }} 
             {{/Input}}
             <span id="display_name" class="input__error"> </span>
             <label class="input__label" for="phone">Телефон</label>
-            {{#Input class="input" type="tel" name="phone" value="Телефон" }} 
+            {{#Input class="input" type="tel" name="phone" value="Телефон" oldValue=phone }} 
             {{/Input}}
             <span id="phone" class="input__error"> </span>
             {{#Button type="submit" }}
@@ -13840,12 +13832,12 @@ class ChangePasswordPageBase extends (0, _block.Block) {
           <form id="login-form" action="/profile" method="put" onClick="click">
 
             <label class="input__label" for="oldPassword">Старый пароль</label>
-            {{#Input class="input" type="password" name="oldPassword" value="Пароль" }} 
+            {{#Input class="input" type="password" name="oldPassword" value="Пароль" oldValue=""}} 
             {{/Input}}
             <span id="oldPassword" class="input__error"> </span>
 
             <label class="input__label" for="newPassword">Новый пароль</label>
-            {{#Input class="input" type="password" name="newPassword" value="Пароль" }} 
+            {{#Input class="input" type="password" name="newPassword" value="Пароль" oldValue="" }} 
             {{/Input}}
             <span id="newPassword" class="input__error"> </span>
 
@@ -13959,6 +13951,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "BackButton", ()=>BackButton);
 var _block = require("../../utils/Block");
+var _router = require("../../utils/Router");
+var _routerDefault = parcelHelpers.interopDefault(_router);
 var _backButtonModuleCss = require("./backButton.module.css");
 class BackButton extends (0, _block.Block) {
     constructor(props){
@@ -13966,7 +13960,11 @@ class BackButton extends (0, _block.Block) {
             ...props,
             style: _backButtonModuleCss,
             events: {
-                click: props.onClick
+                click: (e)=>{
+                    e.preventDefault();
+                    const path = this.props.href;
+                    (0, _routerDefault.default).go(path);
+                }
             }
         });
     }
@@ -13977,8 +13975,68 @@ class BackButton extends (0, _block.Block) {
     }
 }
 
-},{"../../utils/Block":"915bj","./backButton.module.css":"jc2kR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jc2kR":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","../../utils/Router":"lWot6","./backButton.module.css":"jc2kR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jc2kR":[function(require,module,exports) {
 module.exports["sidebar"] = `AIZ3Tq_sidebar`;
+
+},{}],"6YVTP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "BaseLink", ()=>BaseLink);
+parcelHelpers.export(exports, "Link", ()=>Link);
+var _authController = require("../../controller/AuthController");
+var _authControllerDefault = parcelHelpers.interopDefault(_authController);
+var _withRouter = require("../../hocs/withRouter");
+var _block = require("../../utils/Block");
+var _router = require("../../utils/Router");
+var _routerDefault = parcelHelpers.interopDefault(_router);
+var _linkModuleCss = require("./link.module.css");
+class BaseLink extends (0, _block.Block) {
+    constructor(props){
+        super("span", {
+            ...props,
+            style: _linkModuleCss,
+            events: {
+                click: (e)=>{
+                    e.preventDefault();
+                    console.log(this.props.to);
+                    if (this.props.to === "/") (0, _authControllerDefault.default).logout();
+                    if (this.props.to === "/changePassword") (0, _routerDefault.default).go("/changePassword");
+                    if (this.props.to === "/changeProfile") (0, _routerDefault.default).go("/changeProfile");
+                    if (this.props.to === "/changeAvatar") (0, _routerDefault.default).go("/changeAvatar");
+                    this.navigate();
+                }
+            }
+        });
+    }
+    navigate() {
+        this.props.router.go(this.props.to);
+        console.log(Object.entries(this.props));
+    }
+    render() {
+        return `<a class={{class}} onClick={{onClick}} to={{to}}>{{label}}</a>`;
+    }
+}
+const Link = (0, _withRouter.withRouter)(BaseLink);
+
+},{"../../controller/AuthController":"2RQcx","../../hocs/withRouter":"kYXgc","../../utils/Block":"915bj","../../utils/Router":"lWot6","./link.module.css":"3EGhU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kYXgc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "withRouter", ()=>withRouter);
+var _router = require("../utils/Router");
+var _routerDefault = parcelHelpers.interopDefault(_router);
+function withRouter(Component) {
+    return class WithRouter extends Component {
+        constructor(props){
+            super({
+                ...props,
+                router: (0, _routerDefault.default)
+            });
+        }
+    };
+}
+
+},{"../utils/Router":"lWot6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3EGhU":[function(require,module,exports) {
+module.exports["link"] = `_922y4a_link`;
 
 },{}],"6TIdo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -14004,20 +14062,19 @@ class BaseDeleteLink extends (0, _block.Block) {
             events: {
                 click: (e)=>{
                     e.preventDefault();
-                    const path = +window.location.search.slice(1);
+                    const path = +this.props.chatId;
+                    console.log(path);
                     (0, _chatControllerDefault.default).delete(path);
                     this.navigate();
-                    console.log("delete chat");
                 }
             }
         });
     }
     navigate() {
         this.props.router.go("/chat");
-        console.log(this.props);
     }
     render() {
-        return `<a class=${_deleteLinkModuleCss.link} onClick={{onClick}}>{{label}}</a>`;
+        return `<a class=${_deleteLinkModuleCss.link} chatId={{chatId}}>{{label}}</a>`;
     }
 }
 const DeleteLink = (0, _withRouter.withRouter)(BaseDeleteLink);
@@ -14095,13 +14152,13 @@ class ModalBase extends (0, _block.Block) {
                     const modal = document.getElementById("myModal");
                     const btn = document.getElementById("myBtn");
                     const span = document.getElementsByClassName("close")[0];
-                    btn.onclick = function() {
+                    if (btn) btn.onclick = function() {
                         modal.style.display = "block";
                     };
-                    span.onclick = function() {
+                    if (span) span.onclick = function() {
                         modal.style.display = "none";
                     };
-                    window.onclick = function(event) {
+                    if (window) window.onclick = function(event) {
                         if (event.target == modal) modal.style.display = "none";
                     };
                 }
@@ -14112,6 +14169,7 @@ class ModalBase extends (0, _block.Block) {
         this.props.router.go(this.props.to);
     }
     render() {
+        // console.log(this.props)
         return `
       <div>
         <button href="#" id="myBtn" class="chat__menu"> </button>
@@ -14144,7 +14202,7 @@ class ModalBase extends (0, _block.Block) {
               {{/Button}}
             <form>
             <br>
-            {{#DeleteLink }}
+            {{#DeleteLink chatId="${this.props.chatId}" }}
               Удалить чат
             {{/DeleteLink}}
           </div>
@@ -14156,10 +14214,10 @@ class ModalBase extends (0, _block.Block) {
 const Modal = (0, _withRouter.withRouter)(ModalBase);
 
 },{"../../hocs/withRouter":"kYXgc","../../utils/Block":"915bj","./modal.module.css":"eXz04","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eXz04":[function(require,module,exports) {
+module.exports["modal-content"] = `gfNARG_modal-content`;
+module.exports["close"] = `gfNARG_close`;
 module.exports["modal"] = `gfNARG_modal`;
 module.exports["chat__menu"] = `gfNARG_chat__menu`;
-module.exports["close"] = `gfNARG_close`;
-module.exports["modal-content"] = `gfNARG_modal-content`;
 
 },{}],"5eMDj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

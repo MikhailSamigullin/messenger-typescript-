@@ -646,14 +646,14 @@ legend {
   display: flex;
 }
 
-.header__photo {
+.change-avatar__photo, .header__photo {
   width: 130px;
   height: 130px;
   background-color: #e4edfd;
   background-image: url("account_box.beede374.svg");
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 65px;
+  border-radius: 50%;
   margin-bottom: 21px;
 }
 
@@ -665,12 +665,15 @@ legend {
 
 .header__photo:hover:after {
   content: "Поменять аватар";
-  color: #15123f;
+  color: #eaeaea;
   text-align: center;
-  font-size: 20px;
+  background-color: #00000080;
+  border-radius: 5px;
+  font-size: 24px;
   font-weight: 500;
   position: absolute;
   top: 45px;
+  left: 0;
 }
 
 .header__name {
