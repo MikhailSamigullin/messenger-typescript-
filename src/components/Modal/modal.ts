@@ -6,6 +6,7 @@ interface ModalProps extends PropsWithRouter {
   to: string;
   label: string;
   type?: string;
+  chatId: any;
   events: {
     click: () => void;
   };
@@ -16,23 +17,32 @@ export class ModalBase extends Block {
     super('a', {
       ...props,
       style: styles,
+
       events: {
         click: (e: any) => {
           const modal:any = document.getElementById("myModal");
           const btn:any = document.getElementById("myBtn");
           const span:any = document.getElementsByClassName("close")[0];
-
-          btn.onclick = function() {
+          if (btn) {
+            btn.onclick = function() {
             modal.style.display = "block";
           }
-          span.onclick = function() {
+          }
+          
+          if (span) {
+            span.onclick = function() {
             modal.style.display = "none";
           }
-          window.onclick = function(event) {
+          }
+          
+          if (window) {
+            window.onclick = function(event) {
             if (event.target == modal) {
               modal.style.display = "none";
             }
           }
+          }
+          
         } 
       }
     });
@@ -43,6 +53,7 @@ export class ModalBase extends Block {
   }
 
   render() {
+    // console.log(this.props)
       return `
       <div>
         <button href="#" id="myBtn" class="chat__menu"> </button>
@@ -75,7 +86,7 @@ export class ModalBase extends Block {
               {{/Button}}
             <form>
             <br>
-            {{#DeleteLink }}
+            {{#DeleteLink chatId="${this.props.chatId}" }}
               Удалить чат
             {{/DeleteLink}}
           </div>

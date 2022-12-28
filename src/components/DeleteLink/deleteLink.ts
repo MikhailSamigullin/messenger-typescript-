@@ -5,6 +5,7 @@ import * as styles from './deleteLink.module.css';
 
 interface DeleteLinkProps extends PropsWithRouter {
   to: string;
+  chatId: any;
   label: string;
   type?: string;
   events: {
@@ -20,7 +21,8 @@ export class BaseDeleteLink extends Block {
       events: {
         click: (e: any) => {
           e.preventDefault();
-          const path = +window.location.search.slice(1);
+          const path = +this.props.chatId;
+          console.log(path);
           ChatController.delete(path);
           this.navigate();
         } 
@@ -33,7 +35,7 @@ export class BaseDeleteLink extends Block {
   }
 
   render() {
-    return `<a class=${styles.link} onClick={{onClick}}>{{label}}</a>`
+    return `<a class=${styles.link} chatId={{chatId}}>{{label}}</a>`
   }
 }
 

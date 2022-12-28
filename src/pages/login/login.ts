@@ -34,8 +34,6 @@ export class LoginPage extends Block {
     return `   
       <main class="login__container">
         <div class="login-register">
-          {{#BackButton href="../"}}
-          {{/BackButton}}
           <h1 class="login-register__title">{{title}}</h1>
           <div class="login-register__block">
             <form id="login-form" action="/chat" method="post" onClick="click">
@@ -52,7 +50,9 @@ export class LoginPage extends Block {
               {{/Button}} 
             </form>  
           </div>
-          <a class="login-register__register-link" href="/register">Нет аккаунта?</a>
+          {{#Link  class="login-register__register-link" onClick="click" to="/register"}}
+            Нет аккаунта?
+          {{/Link}}
         </div>
     </main>`
   }

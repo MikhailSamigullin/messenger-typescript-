@@ -1,4 +1,5 @@
 import { Block } from '../../utils/Block';
+import Router from '../../utils/Router';
 import * as styles from './backButton.module.css';
 
 interface backButtonProps {
@@ -14,7 +15,13 @@ export class BackButton extends Block {
       ...props,
       style: styles,
       events: {
-      click: props.onClick
+      click: (e: MouseEvent) => {
+        e.preventDefault();
+        const path = this.props.href;
+        Router.go(path)
+        
+
+      } 
       }
     });
   }

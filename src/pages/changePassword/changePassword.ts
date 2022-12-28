@@ -46,12 +46,12 @@ render() {
           <form id="login-form" action="/profile" method="put" onClick="click">
 
             <label class="input__label" for="oldPassword">Старый пароль</label>
-            {{#Input class="input" type="password" name="oldPassword" value="Пароль" }} 
+            {{#Input class="input" type="password" name="oldPassword" value="Пароль" oldValue=""}} 
             {{/Input}}
             <span id="oldPassword" class="input__error"> </span>
 
             <label class="input__label" for="newPassword">Новый пароль</label>
-            {{#Input class="input" type="password" name="newPassword" value="Пароль" }} 
+            {{#Input class="input" type="password" name="newPassword" value="Пароль" oldValue="" }} 
             {{/Input}}
             <span id="newPassword" class="input__error"> </span>
 

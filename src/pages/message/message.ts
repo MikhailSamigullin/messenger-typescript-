@@ -20,6 +20,7 @@ interface MessagePageProps {
   chats: ChatInfo[];
   isLoaded: boolean;
   isMine: boolean;
+  chatId: any;
 }
 
 export class MessageBase extends Block {
@@ -30,7 +31,7 @@ export class MessageBase extends Block {
       ...props,
 			isLoaded: props.isLoaded,
       id: props.id,
-      title: props.messages[0], 
+      title: props.title, 
       avatar: props.avatar, 
       created_by: props.created, 
       unread_count: props.unread,
@@ -40,11 +41,12 @@ export class MessageBase extends Block {
       events: {
         submit: (e: SubmitEvent) => {
           e.preventDefault()
-          const path = +window.location.search.slice(1);
+          const path = +this.props.selectedChat;
           const input = document.querySelector('input[name="message"]') as HTMLInputElement;
           const value = input.value;
 
           if (value) {
+            console.log(`В чат ${path} отправляем сообщение: ${value}` );
             MessagesController.sendMessage(path, value);
           }
 
@@ -54,6 +56,7 @@ export class MessageBase extends Block {
           const valueName = inputName.value;
 
           if (valueName) {
+            console.log(`В чат ${path} добавляем пользователя ${valueName}` );
             ChatController.addUserToChat(path, +valueName);
           }
 
@@ -62,7 +65,7 @@ export class MessageBase extends Block {
           const inputId = document.querySelector('input[name="id_user"]') as HTMLInputElement;
           const valueId = inputId.value;
           if (valueId) {
-            console.log(valueId);
+            console.log(`Из чата ${path} удаляем пользователя ${valueId}` );
             ChatController.deleteUserFromChat(path, +valueId);
           }
           inputId.value = '';
@@ -101,30 +104,31 @@ export class MessageBase extends Block {
       (this.children.chatsList as Block).setProps({
         isLoaded: true
       })
-      ChatController.fetchChats()
+      console.log(this.props)
+
     });
   }
 
   render()
-  { let title = '';
-    const path = +window.location.search.slice(1);
-    const arr = this.props.chats.filter((item: any) => {
-      if (item.id === path) {
-        title = item.title;
-      }
-    })
+  { 
+   
+    // console.log(this.props)
     return `  
       <main class="chat">
         <div class="chat__header">
           {{#BackButton href="/chat"}}
           {{/BackButton}}
-          <a href="#" class="chat__photo"></a>
-          <a href="#" class="chat__name">${title}</a>
+          {{#if this.avatar}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" class="chat__photo"></img>
+            {{else}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/235bb159-2395-4edc-8491-f9e23fdb415c/490c1b74-5407-4ea4-853d-33a1a797c0f1_pngtree-no-photo-selfie-icon-image_1267182.jpg" class="chat__photo"></img>
+            {{/if}}
+          <a href="#" class="chat__name">${this.props.title}</a>
           {{#each this.messages}}
             {{this.title}}
           {{/each}}
 
-          {{#Modal}}
+          {{#Modal chatId="${this.props.selectedChat}"}}
           {{/Modal}}
 
         </div>
@@ -157,15 +161,25 @@ export class MessageBase extends Block {
   `
   }
 }
-const path = +window.location.search.slice(1);
 
-const withChats: any = withStore((state) => ({
-  chats: [...(state.chats || [])],
-  messages: (state.messages || {})[path] || [],
-  userId: state.user.id
-}));
 
-Handlebars.registerHelper('ifCond', function(v1: any, v2: any, options: any) {
+const withChats: any = withStore((state) => {
+  const selectedChatId: number | undefined = state.selectedChat;
+  return {
+    chats: [...(state.chats || [])],
+    userId: state.user.id,
+    messages: (state.messages || {})[selectedChatId as number] || [],
+    selectedChat: state.selectedChat,
+    avatar: state.selectedAvatar,
+    title: state.selectedTitle
+  };
+  
+
+});
+
+
+
+Handlebars.registerHelper('ifCond', function(v1: number | string, v2: number | string, options: any) {
   if(v1 === v2) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore

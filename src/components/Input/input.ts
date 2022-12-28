@@ -4,9 +4,10 @@ import { validateInput } from '../../utils/validateInput';
 
 interface InputProps {
   type: string;
-  name: string;
-  required: string;
-  inputFields: string[];
+  name?: string;
+  required?: string;
+  inputFields?: string[];
+  placeholder?: string;
 }
 
 export class Input extends Block {
@@ -33,6 +34,7 @@ export class Input extends Block {
   }
 
   render() {
-      return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} required={{required}}>`
+      return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} value={{oldValue}} >`
   }
 }
+// required={{required}}

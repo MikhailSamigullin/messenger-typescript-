@@ -22,6 +22,7 @@ export class ChatPage extends Block {
     this.setProps({
       chats: props.chats,
       events: {
+
     }
     })
   }
@@ -37,6 +38,7 @@ export class ChatPage extends Block {
   }
 
   render() {
+    
     return `  
     <main class="chat__container">
       <div class="chat-list">
@@ -45,7 +47,10 @@ export class ChatPage extends Block {
             + Новый чат
           {{/AddChat}}
           
-          <a href="/profile" class="">Профиль</a>
+
+          {{#Link  class="" onClick="click" to="/profile"}}
+          Профиль
+            {{/Link}}
         </div>
         <div class="chat-list__search">
           <input type="search" 

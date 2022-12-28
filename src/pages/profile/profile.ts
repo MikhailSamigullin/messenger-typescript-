@@ -20,14 +20,15 @@ class ProfilePageBase extends Block {
 
   render() {
     return `  
-      <div class="profile__container">
+      <div class="login__container">
         {{#BackButton href="/chat"}}
         {{/BackButton}}
-        <div class="profile">
+        <div class="login-register">
           <div class="header">
-            <a href="/changeAvatar" class="header__photo">
+            {{#Link  class="header__photo" onClick="click" to="/changeAvatar"}}
+              
             <img src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" alt="photo" />
-            </a>
+            {{/Link}}
             <span class="header__name">Привет, ${this.props.first_name}!</span>
           </div>
         <div class="profile-info">
@@ -60,8 +61,14 @@ class ProfilePageBase extends Block {
         </div>
         <nav class="footer">
           <ul>
-            <li><a href="/changeProfile" class="footer__change-info">Изменить данные</a></li>
-            <li><a href="/changePassword" class="footer__change-info">Изменить пароль</a></li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changeProfile"}}
+                Изменить данные
+              {{/Link}}</li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changePassword"}}
+                Изменить пароль
+              {{/Link}}</li>
             <li>
               {{#Link  class="footer__logout" onClick="click" to="/"}}
                 Выйти

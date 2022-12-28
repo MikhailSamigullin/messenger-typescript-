@@ -15,6 +15,7 @@ export interface SignupData {
 }
 
 export interface User {
+  selectedChat: any;
   id: number;
   first_name: string;
   second_name: string;

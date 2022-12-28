@@ -5,6 +5,7 @@ import { withStore } from '../../utils/Store';
 import { ChatInfo } from '../../api/ChatsApi';
 import ChatsController from '../../controller/ChatController';
 import Link from '../Link/index';
+import Router from '../../utils/Router';
 
 interface ChatsListProps {
   unread: string;
@@ -27,14 +28,29 @@ class ChatsListBase extends Block{
       avatar: props.avatar, 
       created_by: props.created, 
       unread_count: props.unread,
-      events: {
+            events: {
+        click: (e: MouseEvent) => {
+          e.preventDefault();
+          const path = (e.target as any).name;
+          let title = '';
+          let avatar = '';
+          ChatsController.selectChat(+path);
+          const arr = this.props.chats.map((item: any) => {
+              if (item.id === +path) {
+                title = item.title;
+                avatar = item.avatar;
+              }
+            })
+          ChatsController.selectTitle(title);
+          ChatsController.selectAvatar(avatar);
+          Router.go(`/message`)
+        }
       }
     });
   }
 
   init() {
     this.children.chats = this.createChats(this.props) as any;
-    this.children.profileLink = new Link({ to: '/profile', label: 'Профиль'}) as any;
   }
 
   componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
@@ -62,20 +78,26 @@ class ChatsListBase extends Block{
 <div>
         <aside class="{{ styles.chats-list }}">
     {{#if ${this.props.isLoaded} }}
-    {{#each chats}}
-            <div class="list">
-            <div class="list__item">
-              <a href="/message?{{this.id}}" class="list__photo"></a>
-              <div class="list__chat">
-                <a href="/message?{{this.id}}" class="list__name">{{this.title}}</a>
-                <a href="/message?{{this.id}}" class="list__last-message"><span> {{this.last_message.user.first_name}}</span> :{{this.last_message.content}}</a>
-              </div>
-              <div class="list__info">
-                <div class="list__data">{{this.created}}</div>
-              </div>
+      {{#each chats}}
+        <div class="list">
+          <div class="list__item">
+            <a name="{{this.id}}" class="list__photo" onclick="click">
+              {{#if this.avatar}}
+                <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/{{this.avatar}}" class="list__photo"></img>
+              {{else}}
+                <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/235bb159-2395-4edc-8491-f9e23fdb415c/490c1b74-5407-4ea4-853d-33a1a797c0f1_pngtree-no-photo-selfie-icon-image_1267182.jpg" class="list__photo"></img>
+              {{/if}}
+            </a>
+            <div class="list__chat">
+              <a name="{{this.id}}" class="list__name">{{this.title}}</a>
+              <a name="{{this.id}}" class="list__last-message"><span> {{this.last_message.user.first_name}}</span> :{{this.last_message.content}}</a>
+            </div>
+            <div class="list__info">
+              <div class="list__data" name="{{this.id}}"></div>
             </div>
           </div>
-        {{/each}}
+        </div>
+      {{/each}}
     {{else}}
       Loading...
     {{/if}}
@@ -85,5 +107,8 @@ class ChatsListBase extends Block{
   }
 }
 
-const withChats: any = withStore((state) => ({chats: [...(state.chats || [])]}));
+
+const withChats: any = withStore((state) => ({chats: [...(state.chats || [])],
+  selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)
+}));
 export const ChatsList = withChats(ChatsListBase);

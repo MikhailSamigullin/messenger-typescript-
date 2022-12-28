@@ -37,7 +37,7 @@ render() {
   return `  
     <main class="login__container">
       <div class="login-register">
-        {{#BackButton href="/login"}}
+        {{#BackButton href="/"}}
         {{/BackButton}}
         <h1 class="login-register__title">{{title}}</h1>
         <div class="login-register__block">

@@ -58,6 +58,7 @@ export class MessengerBase extends Block {
   }
 
   render() {
+    // console.log(this.props)
     return `
     <div>
       {{#each messages}}
@@ -82,11 +83,14 @@ const withSelectedChatMessages: any = withStore(state => {
       userId: state.user.id
     };
   }
+  console.log(state)
+  
 
   return {
     messages: (state.messages || {})[selectedChatId] || [],
     selectedChat: state.selectedChat,
-    userId: state.user.id
+    userId: state.user.id,
+    
   };
 });
 

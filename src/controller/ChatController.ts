@@ -3,6 +3,8 @@ import store from '../utils/Store';
 import MessagesController from './MessagesController';
 
 class ChatsController {
+ 
+
   private readonly api: ChatsAPI;
   constructor() {
     this.api = API;
@@ -42,6 +44,14 @@ class ChatsController {
 
   selectChat(id: number) {
     store.set('selectedChat', id);
+  }
+
+  selectAvatar(avatar: string) {
+    store.set('selectedAvatar', avatar);
+  }
+  
+  selectTitle(title: string) {
+    store.set('selectedTitle', title);
   }
 }
 
