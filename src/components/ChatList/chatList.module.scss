@@ -1,0 +1,81 @@
+@import "../../style/base";
+@import "../../style/variables";
+
+.list {
+  &:last-child {
+    border-bottom: solid 1px $light-grey;
+  }
+}
+
+.list__item {
+  @include flex(nowrap, row);
+
+  height: 71px;
+  padding: 11px 0;
+  border-top: solid 1px $light-grey;
+
+  &:hover {
+    background-color: $mint;
+  }
+}
+
+.list__photo {
+  height: 47px;
+  min-width: 47px;
+  border-radius: 24px;
+  background-color: $yellow;
+  margin: 0 10px;
+  flex-grow: 0;
+}
+
+.list__chat {
+  @include flex(nowrap, column);
+
+  flex-grow: 1;
+  min-width: 193px;
+  max-width: 75%;
+}
+
+.list__name {
+  @include font(13px, 600, $dark-blue);
+
+  margin-bottom: 4px;
+}
+
+.list__last-message {
+  @include font(12px, 500, $white);
+
+  text-align: left;
+
+  & span {
+    @include font(13px, 500, $dark-blue);
+
+    text-align: left;
+  }
+}
+
+.list__info {
+  @include flex(nowrap, column);
+
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 47px;
+  margin-right: 10px;
+  width: 45px;
+  flex-grow: 0;
+}
+
+.list__data {
+  @include font(9px, 500, $dark-blue);
+}
+
+.list__unread-messages {
+  @include font(11px, 500, $dark-blue);
+
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background-color: $yellow;
+  text-align: center;
+  line-height: 20px;
+}

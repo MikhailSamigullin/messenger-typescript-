@@ -1,48 +1,153 @@
 import { Block } from '../../utils/Block';
-import { messages } from '../../data/messages';
+import { ChatInfo } from '../../api/ChatsApi';
+import ChatController from '../../controller/ChatController';
+import ChatsList from '../../components/ChatList';
+import Messenger from '../../components/Messenger';
+import MessagesController from '../../controller/MessagesController';
+import Chat from '../../components/Chat';
+import { withStore } from '../../utils/Store';
+import Message from '../../components/Message';
+import Handlebars from 'handlebars'
 
 interface MessagePageProps {
-  messages: object,
-  name: string;
-  message: string;
-  data: string;
+  messages: any;
+  userId: any;
+  unread: string;
+  created: string;
+  avatar: any;
+  title: string;
   id: string;
-  areYouOwner: string;
+  chats: ChatInfo[];
+  isLoaded: boolean;
+  isMine: boolean;
+  chatId: any;
 }
 
-export class MessagePage extends Block {
+export class MessageBase extends Block {
   [x: string]: any;
   constructor(props: MessagePageProps) {
     super('div', props);
     this.setProps({
-      messages: messages,
-			name: props.name,
-      message: props.message,
-      areYouOwner: props.areYouOwner,
-      data: props.data,
-      id: props.id
+      ...props,
+			isLoaded: props.isLoaded,
+      id: props.id,
+      title: props.title, 
+      avatar: props.avatar, 
+      created_by: props.created, 
+      unread_count: props.unread,
+      chats: this.props.chats,
+      messages: this.props.messages,
+      isMine: props.userId === props.messages.user_id,
+      events: {
+        submit: (e: SubmitEvent) => {
+          e.preventDefault()
+          const path = +this.props.selectedChat;
+          const input = document.querySelector('input[name="message"]') as HTMLInputElement;
+          const value = input.value;
+
+          if (value) {
+            console.log(`В чат ${path} отправляем сообщение: ${value}` );
+            MessagesController.sendMessage(path, value);
+          }
+
+          input.value = '';
+
+          const inputName = document.querySelector('input[name="name"]') as HTMLInputElement;       
+          const valueName = inputName.value;
+
+          if (valueName) {
+            console.log(`В чат ${path} добавляем пользователя ${valueName}` );
+            ChatController.addUserToChat(path, +valueName);
+          }
+
+          inputName.value = '';
+
+          const inputId = document.querySelector('input[name="id_user"]') as HTMLInputElement;
+          const valueId = inputId.value;
+          if (valueId) {
+            console.log(`Из чата ${path} удаляем пользователя ${valueId}` );
+            ChatController.deleteUserFromChat(path, +valueId);
+          }
+          inputId.value = '';
+        }
+      }
 			},
     )
-    
   }
 
-  render() {
+  private createMessages(props: MessagePageProps) {
+    return props.messages.map((data: any) => {
+      return new Message({...data, isMine: props.userId === data.user_id });
+    })
+  }
+
+  private createChats(props: MessagePageProps) {
+    return props.chats.map(data => {
+      return new Chat({
+        ...data,
+      id: this.props.id,
+        events: {
+          click: (e: MouseEvent) => {
+            e.preventDefault();
+            ChatController.selectChat(data.id);
+          }
+        }
+      });
+    })
+  }
+
+  init() {
+    this.children.chatsList = new ChatsList({ isLoaded: false });
+    this.children.messenger = new Messenger({});
+
+    ChatController.fetchChats().finally(() => {
+      (this.children.chatsList as Block).setProps({
+        isLoaded: true
+      })
+      console.log(this.props)
+
+    });
+  }
+
+  render()
+  { 
+   
+    // console.log(this.props)
     return `  
       <main class="chat">
         <div class="chat__header">
           {{#BackButton href="/chat"}}
           {{/BackButton}}
-          <a href="#" class="chat__photo"></a>
-          <a href="#" class="chat__name">{{this.name}}</a>
-          <a href="#" class="chat__menu"></a>
+          {{#if this.avatar}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" class="chat__photo"></img>
+            {{else}}
+            <img name="{{this.id}}" src="https://ya-praktikum.tech/api/v2/resources/235bb159-2395-4edc-8491-f9e23fdb415c/490c1b74-5407-4ea4-853d-33a1a797c0f1_pngtree-no-photo-selfie-icon-image_1267182.jpg" class="chat__photo"></img>
+            {{/if}}
+          <a href="#" class="chat__name">${this.props.title}</a>
+          {{#each this.messages}}
+            {{this.title}}
+          {{/each}}
+
+          {{#Modal chatId="${this.props.selectedChat}"}}
+          {{/Modal}}
+
         </div>
         <div class="dialog">
-          {{#each messages}}
-            {{#Message message=this.message data=this.data}}
-            {{/Message}}
-          {{/each}}
+        
+        {{#each this.messages}}
+          {{#ifCond user_id ${this.props.userId}}}
+            <div class="chat__message_mine">
+              {{ content }}
+            </div>
+          {{else}}
+            <div class="chat__message-not_mine">
+              {{ content }}
+            </div>
+          {{/ifCond}}
+        {{/each}}
+
         </div>
-          <form class="chat__footer" >
+          <form class="chat__footer" method="post" onClick="submit">
             <a href="#" class="chat__upload"></a>
             <input type="text" 
             class="chat__message"
@@ -56,3 +161,33 @@ export class MessagePage extends Block {
   `
   }
 }
+
+
+const withChats: any = withStore((state) => {
+  const selectedChatId: number | undefined = state.selectedChat;
+  return {
+    chats: [...(state.chats || [])],
+    userId: state.user.id,
+    messages: (state.messages || {})[selectedChatId as number] || [],
+    selectedChat: state.selectedChat,
+    avatar: state.selectedAvatar,
+    title: state.selectedTitle
+  };
+  
+
+});
+
+
+
+Handlebars.registerHelper('ifCond', function(v1: number | string, v2: number | string, options: any) {
+  if(v1 === v2) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    return options.fn(this);
+  }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+  return options.inverse(this);
+})
+
+export const MessagePage = withChats(MessageBase);

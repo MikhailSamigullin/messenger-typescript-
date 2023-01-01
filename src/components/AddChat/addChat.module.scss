@@ -1,0 +1,11 @@
+@import "../../style/base";
+@import "../../style/variables";
+
+.chat-list__add-button {
+  @include font(12px, 500, $white);
+
+  height: 36px;
+  width: 120px;
+  margin-top: 16px;
+  margin-right: 20px;
+}

@@ -25,7 +25,8 @@ export default function validation(name: string, value:string):unknown {
     };
   }
   if (Object.keys(inputs).includes(name)) {
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
     return inputs[name](value);
   }
 

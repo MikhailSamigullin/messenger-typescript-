@@ -1,0 +1,31 @@
+@import "../../style/base";
+@import "../../style/variables";
+
+.message {
+  @include font(13px, 600, $dark-blue);
+
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+  border: 1px solid $green;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.message__answer {
+  @include font(13px, 600, $dark-blue);
+
+  min-width: 200px;
+  max-width: 400px;
+  border: 1px solid $yellow;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.message__data {
+  @include font(11px, 600, $dark-blue);
+
+  text-align: right;
+}

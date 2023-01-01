@@ -2,11 +2,8 @@ import { Block } from '../../utils/Block';
 import * as styles from './message.module.css';
 
 interface MessageProps {
-  message: string;
-  data: string;
-  id: string;
-  areYouOwner: string;
-  style: any;
+  content: string;
+  isMine: boolean;
 }
 
 export class Message extends Block {
@@ -21,15 +18,10 @@ export class Message extends Block {
   }
 
   render() {
-    console.log(this.style);
     return `
-      <div class="${ styles.message }">
-        <div class="${ styles.message__text }">
-          {{name}} {{message}}
-        </div>
-        <div class="${ styles.data }">
-          {{data}}
-        </div>
-      </div>>`
+    <div class="{{ styles.message }} {{#if isMine}} {{ styles.message--mine }} {{/if}}">
+    {{ content }}
+  </div>
+    `
   }
 }

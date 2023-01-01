@@ -43,13 +43,19 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     const children: Record<string, Block> = {};
     const props = {} as Props;
 
+
     Object.entries(ChildrenAndProps).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
+      if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        children[key as string] = value;
+      } else if (value instanceof Block) {
+        children[key as string] = value;
       } else {
-        props[key as keyof Props<P>] = value;
+        props[key] = value;
       }
-    })
+    });
+
     return {props: props as Props<P>, children};
   }
 
@@ -70,7 +76,6 @@ export abstract class Block<P extends Record<string, unknown> = any> {
       this.element?.removeEventListener(eventName, events[eventName]);
     });
   }
-
 
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
@@ -98,12 +103,19 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     this.componentDidMount();
   }
 
-  // Может переопределять пользователь, необязательно трогать
   componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-  }
+
+  Object.values(this.children).forEach(child => {
+    if (Array.isArray(child)) {
+      child.forEach(ch => ch.dispatchComponentDidMount());
+    } else {
+      child.dispatchComponentDidMount();
+    }
+  });
+}
 
   _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     if (this.componentDidUpdate(oldProps, newProps)) {
@@ -112,7 +124,6 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     this._render();
   }
 
-  // Может переопределять пользователь, необязательно трогать
   componentDidUpdate(oldProps: Props<P>, newProps: Props<P>): boolean {
     return true;
   }
@@ -124,7 +135,6 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     Object.assign(this.props, nextProps);
   };
   
-
   get element() {
     return this._element;
   }
@@ -156,7 +166,6 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     this._addEvent();
   }
 
-  // Может переопределять пользователь, необязательно трогать
   protected render(): string {
     return '';
   }

@@ -4,11 +4,10 @@ import { validateInput } from '../../utils/validateInput';
 
 interface InputProps {
   type: string;
-  name: string;
-  value: string;
-  text: string;
-  required: string;
-  inputFields: string[];
+  name?: string;
+  required?: string;
+  inputFields?: string[];
+  placeholder?: string;
 }
 
 export class Input extends Block {
@@ -18,12 +17,24 @@ export class Input extends Block {
       style: styles,
       events: {
       focus: validateInput,
-      blur: validateInput
+      blur: validateInput,
       }
     });
   }
+  public setValue(value: string) {
+    return (this.element as HTMLInputElement).value = value;
+  }
+
+  public getName() {
+    return (this.element as HTMLInputElement).name;
+  }
+
+  public getValue() {
+    return (this.element as HTMLInputElement).value;
+  }
 
   render() {
-      return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} required={{required}}>`
+      return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} value={{oldValue}} >`
   }
 }
+// required={{required}}

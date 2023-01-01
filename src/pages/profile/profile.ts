@@ -1,59 +1,85 @@
+import AuthController from '../../controller/AuthController';
 import { Block } from '../../utils/Block';
+import { withStore } from '../../utils/Store';
 
 interface ProfilePageProps {
   title: string;
+  to: string;
 }
 
-export class ProfilePage extends Block {
+class ProfilePageBase extends Block {
   constructor(props: ProfilePageProps) {
     super('div', props);
+    AuthController.fetchUser();
+    this.setProps({
+      name: this.props.first_name,
+      event: {
+        }
+      })
   }
 
   render() {
     return `  
-      <div class="profile__container">
+      <div class="login__container">
         {{#BackButton href="/chat"}}
         {{/BackButton}}
-        <div class="profile">
+        <div class="login-register">
           <div class="header">
-            <a href="#" class="header__photo"></a>
-            <span class="header__name">Иван</span>
+            {{#Link  class="header__photo" onClick="click" to="/changeAvatar"}}
+              
+            <img src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" alt="photo" />
+            {{/Link}}
+            <span class="header__name">Привет, ${this.props.first_name}!</span>
           </div>
         <div class="profile-info">
           <ul>
             <li>
               <span>Почта</span>
-              <span>pochta@yandex.ru</span>
+              <span>${this.props.email}</span>
             </li>
             <li>
               <span>Логин</span>
-              <span>ivanivanov</span>
+              <span>${this.props.login}</span>
             </li>
             <li>
               <span>Имя</span>
-              <span>Иван</span>
+              <span>${this.props.first_name}</span>
             </li>
             <li>
               <span>Фамилия</span>
-              <span>Иванов</span>
+              <span>${this.props.second_name}</span>
             </li>
             <li>
               <span>Имя в чате</span>
-              <span>Иван</span>
+              <span>${this.props.display_name}</span>
             </li>
             <li>
               <span>Телефон</span>
-              <span>+7 (909) 967 30 30</span>
+              <span>${this.props.phone}</span>
             </li>
           </ul>
         </div>
         <nav class="footer">
           <ul>
-            <li><a href="/changeProfile" class="footer__change-info">Изменить данные</a></li>
-            <li><a href="/login" class="footer__logout">Выйти</a></li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changeProfile"}}
+                Изменить данные
+              {{/Link}}</li>
+            <li>
+              {{#Link  class="footer__change-info" onClick="click" to="/changePassword"}}
+                Изменить пароль
+              {{/Link}}</li>
+            <li>
+              {{#Link  class="footer__logout" onClick="click" to="/"}}
+                Выйти
+              {{/Link}}
+            </li>
           </ul>
         </nav>
       </div>
     </div>`
   }
 }
+
+const withUser: any = withStore((state) => ({ ...state.user }))
+export const ProfilePage = withUser(ProfilePageBase);
