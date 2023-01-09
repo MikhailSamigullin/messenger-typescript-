@@ -4,8 +4,6 @@ import Message from '../Message/index';
 import { Input } from '../Input/input';
 import MessagesController, { Message as MessageInfo } from '../../controller/MessagesController';
 import { withStore } from '../../utils/Store';
-import Chat from '../Chat';
-import ChatsController from '../../controller/ChatController';
 
 interface MessengerProps {
   selectedChat: number | undefined;
@@ -31,23 +29,24 @@ export class MessengerBase extends Block {
     );
   }
 
-  private createChats(props: any) {
-    return props.chats.map((data: { id: number; }) => {
-      return new Chat({
-        ...data,
-      id: this.props.id,
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault();
-            ChatsController.selectChat(data.id);
-          }
-        }
-      });
-    })
-  }
+  // private createChats(props: any) {
+  //   return props.chats.map((data: { id: number; }) => {
+  //     return new Chat({
+  //       ...data,
+  //     id: this.props.id,
+  //       events: {
+  //         click: (e: MouseEvent) => {
+  //           e.preventDefault();
+  //           ChatsController.selectChat(data.id);
+  //         }
+  //       }
+  //     });
+  //   })
+  // }
 
   componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
     this.children.messages = this.createMessages(newProps) as any;
+    oldProps;
     return true;
   }
 

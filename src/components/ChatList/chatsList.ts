@@ -4,7 +4,6 @@ import * as styles from './chatList.module.css';
 import { withStore } from '../../utils/Store';
 import { ChatInfo } from '../../api/ChatsApi';
 import ChatsController from '../../controller/ChatController';
-import Link from '../Link/index';
 import Router from '../../utils/Router';
 
 interface ChatsListProps {
@@ -41,6 +40,7 @@ class ChatsListBase extends Block{
                 avatar = item.avatar;
               }
             })
+            arr;
           ChatsController.selectTitle(title);
           ChatsController.selectAvatar(avatar);
           Router.go(`/message`)
@@ -55,6 +55,7 @@ class ChatsListBase extends Block{
 
   componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
     this.children.chats = this.createChats(newProps) as any;
+    oldProps;
     return true;
   }
 

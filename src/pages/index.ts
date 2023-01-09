@@ -1,6 +1,5 @@
 import { LoginPage } from "./login/login";
 import { RegisterPage } from "./register/register";
-import { ErrorPage } from "./error/error";
 import { ChatPage } from "./chat/chat";
 import { MessagePage } from "./message/message";
 import { ProfilePage } from "./profile/profile";

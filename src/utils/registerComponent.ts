@@ -8,6 +8,8 @@ export function registerComponent(name: string, Component: typeof Block) {
       data.root.children = {};
     }
     data.root.children[component.id] = component;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     const contents = fn ? fn(this) : '';
     return `<div data-id="${component.id}">${contents}</div>`;
   });

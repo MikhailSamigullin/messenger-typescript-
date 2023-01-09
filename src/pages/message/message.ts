@@ -4,9 +4,7 @@ import ChatController from '../../controller/ChatController';
 import ChatsList from '../../components/ChatList';
 import Messenger from '../../components/Messenger';
 import MessagesController from '../../controller/MessagesController';
-import Chat from '../../components/Chat';
 import { withStore } from '../../utils/Store';
-import Message from '../../components/Message';
 import Handlebars from 'handlebars'
 
 interface MessagePageProps {
@@ -75,26 +73,26 @@ export class MessageBase extends Block {
     )
   }
 
-  private createMessages(props: MessagePageProps) {
-    return props.messages.map((data: any) => {
-      return new Message({...data, isMine: props.userId === data.user_id });
-    })
-  }
+  // private createMessages(props: MessagePageProps) {
+  //   return props.messages.map((data: any) => {
+  //     return new Message({...data, isMine: props.userId === data.user_id });
+  //   })
+  // }
 
-  private createChats(props: MessagePageProps) {
-    return props.chats.map(data => {
-      return new Chat({
-        ...data,
-      id: this.props.id,
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault();
-            ChatController.selectChat(data.id);
-          }
-        }
-      });
-    })
-  }
+  // private createChats(props: MessagePageProps) {
+  //   return props.chats.map(data => {
+  //     return new Chat({
+  //       ...data,
+  //     id: this.props.id,
+  //       events: {
+  //         click: (e: MouseEvent) => {
+  //           e.preventDefault();
+  //           ChatController.selectChat(data.id);
+  //         }
+  //       }
+  //     });
+  //   })
+  // }
 
   init() {
     this.children.chatsList = new ChatsList({ isLoaded: false });

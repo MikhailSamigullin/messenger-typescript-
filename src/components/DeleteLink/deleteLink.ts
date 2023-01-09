@@ -22,7 +22,6 @@ export class BaseDeleteLink extends Block {
         click: (e: any) => {
           e.preventDefault();
           const path = +this.props.chatId;
-          console.log(path);
           ChatController.delete(path);
           this.navigate();
         } 

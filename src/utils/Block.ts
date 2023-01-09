@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { EventBus } from "./EventBus";
 import { nanoid } from 'nanoid';
-import Handlebars from 'handlebars';
+import Handlebars from 'handlebars'; 
 
 type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void>} & P;
 
-export abstract class Block<P extends Record<string, unknown> = any> {
+export class Block<P extends Record<string, unknown> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -14,6 +14,9 @@ export abstract class Block<P extends Record<string, unknown> = any> {
   } as const;  
 
   private _element : HTMLElement | null = null;
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   private _meta : {tagName: string, props: unknown};
   public refs: Record<string, Block> = {};
   protected props: Props<P>;
@@ -123,7 +126,8 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     }
     this._render();
   }
-
+ // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   componentDidUpdate(oldProps: Props<P>, newProps: Props<P>): boolean {
     return true;
   }

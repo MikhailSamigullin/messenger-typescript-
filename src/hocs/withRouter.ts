@@ -1,4 +1,3 @@
-import {Block} from '../utils/Block';
 import Router from '../utils/Router';
 
 export function withRouter(Component: any) {

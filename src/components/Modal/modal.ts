@@ -19,7 +19,7 @@ export class ModalBase extends Block {
       style: styles,
 
       events: {
-        click: (e: any) => {
+        click: () => {
           const modal:any = document.getElementById("myModal");
           const btn:any = document.getElementById("myBtn");
           const span:any = document.getElementsByClassName("close")[0];

@@ -1,6 +1,5 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
-import { Block } from './Block';
 import { User } from '../api/AuthApi';
 import { ChatInfo } from '../api/ChatsApi';
 import { Message } from '../controller/MessagesController';
@@ -41,7 +40,7 @@ const store = new Store();
 window.store = store;
 
 export function withStore<SP>(mapStateToProps: (state: State) => SP) {
-  return function wrap<P>(Component: typeof Block<SP & P>){
+  return function wrap<P>(Component: any){
 
     return class WithStore extends Component {
 

@@ -15,20 +15,20 @@ export class UserAPI extends BaseAPI {
   constructor() {
     super('/user');
   }
-
-  read(): Promise<User> {
+  // HTTPMethod<Response = void> = (url: string, options?: Options) => Promise<Response >
+  read(): Promise<User> | any{
     return this.http.get('/profile');
   }
 
-  updateAvatar(data: User) {
+  updateAvatar(data: any) {
     return this.http.put('/profile/avatar', data);
   }
 
-  updatePassword(data: User) {
+  updatePassword(data: any) {
     return this.http.put('/password', data);
   }
 
-  updateProfile(data: User) {
+  updateProfile(data: any) {
     return this.http.put('/profile', data);
   }
 
