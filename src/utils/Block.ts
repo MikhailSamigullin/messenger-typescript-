@@ -1,7 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { EventBus } from "./EventBus";
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars'; 
+// import crypto from 'crypto';
+
+function makeid(length: number) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void>} & P;
 
@@ -22,7 +33,9 @@ export class Block<P extends Record<string, unknown> = any> {
   protected props: Props<P>;
   private eventBus: () => EventBus;
   public children: Record<string, Block<any>>;
-  public id = nanoid(6);
+  // public id = nanoid(6);
+  // public id = crypto.randomUUID();
+  public id = makeid(6);
 
   constructor(tagName = 'div', propsWithChildren: Props = {} as Props<P>) {
     const eventBus = new EventBus();
