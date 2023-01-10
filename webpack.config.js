@@ -12,7 +12,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json', '.css'],
     alias: {
-      'handlebars': 'handlebars/runtime.js'
+      'handlebars': 'handlebars/dist/handlebars.js'
     },
     fallback: {
       "crypto": false,
@@ -40,7 +40,7 @@ module.exports = {
         ],
         exclude: /(node_modules)/
       },
-      { test: /\.css$/, use: 'css-loader' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
