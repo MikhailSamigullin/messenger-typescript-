@@ -123,7 +123,7 @@ export class Block<P extends Record<string, unknown> = any> {
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-
+    
   Object.values(this.children).forEach(child => {
     if (Array.isArray(child)) {
       child.forEach(ch => ch.dispatchComponentDidMount());

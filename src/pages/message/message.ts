@@ -5,7 +5,7 @@ import ChatsList from '../../components/ChatList';
 import Messenger from '../../components/Messenger';
 import MessagesController from '../../controller/MessagesController';
 import { withStore } from '../../utils/Store';
-import Handlebars from 'handlebars'
+import Handlebars from 'handlebars';
 
 interface MessagePageProps {
   messages: any;
