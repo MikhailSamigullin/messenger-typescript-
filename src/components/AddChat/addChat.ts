@@ -23,7 +23,6 @@ export class AddChatBase extends Block {
           let titleChat: any = '';
           titleChat = prompt('Введите название чата');
           this.navigate();
-          console.log(titleChat);
           ChatController.create(titleChat);
         } 
       }
@@ -32,7 +31,6 @@ export class AddChatBase extends Block {
 
   navigate() {
     this.props.router.go(this.props.to);
-    console.log(Object.entries(this.props) )
   }
 
   render() {

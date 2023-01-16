@@ -21,8 +21,6 @@ export class BaseLink extends Block {
       events: {
         click: (e: any) => {
           e.preventDefault();
-          
-          console.log(this.props.to)
           if (this.props.to === '/') {
             AuthController.logout();
           }
@@ -36,7 +34,6 @@ export class BaseLink extends Block {
             Router.go('/changeAvatar')
           }
           this.navigate();
-
         } 
       }
     });
@@ -44,7 +41,6 @@ export class BaseLink extends Block {
 
   navigate() {
     this.props.router.go(this.props.to);
-    console.log(Object.entries(this.props));
   }
 
   render() {

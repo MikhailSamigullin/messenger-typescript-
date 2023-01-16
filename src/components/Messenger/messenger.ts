@@ -1,6 +1,6 @@
 import { Block } from '../../utils/Block';
 import * as styles from './messenger.module.css';
-import Message from '../Message/index';
+// import Message from '../Message/index';
 import { Input } from '../Input/input';
 import MessagesController, { Message as MessageInfo } from '../../controller/MessagesController';
 import { withStore } from '../../utils/Store';
@@ -29,35 +29,8 @@ export class MessengerBase extends Block {
     );
   }
 
-  // private createChats(props: any) {
-  //   return props.chats.map((data: { id: number; }) => {
-  //     return new Chat({
-  //       ...data,
-  //     id: this.props.id,
-  //       events: {
-  //         click: (e: MouseEvent) => {
-  //           e.preventDefault();
-  //           ChatsController.selectChat(data.id);
-  //         }
-  //       }
-  //     });
-  //   })
-  // }
-
-  componentDidUpdate(oldProps: MessengerProps, newProps: MessengerProps): boolean {
-    this.children.messages = this.createMessages(newProps) as any;
-    oldProps;
-    return true;
-  }
-
-  createMessages(props: MessengerProps) {
-    return props.messages.map(data => {
-      return new Message({...data, isMine: props.userId === data.user_id });
-    })
-  }
-
   render() {
-    // console.log(this.props)
+
     return `
     <div>
       {{#each messages}}
@@ -74,6 +47,7 @@ export class MessengerBase extends Block {
 }
 
 const withSelectedChatMessages: any = withStore(state => {
+  
   const selectedChatId = state.selectedChat;
   if (!selectedChatId) {
     return {
@@ -81,9 +55,7 @@ const withSelectedChatMessages: any = withStore(state => {
       selectedChat: undefined,
       userId: state.user.id
     };
-  }
-  console.log(state)
-  
+  }  
 
   return {
     messages: (state.messages || {})[selectedChatId] || [],

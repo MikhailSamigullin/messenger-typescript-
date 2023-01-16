@@ -15,7 +15,7 @@ export class UserAPI extends BaseAPI {
   constructor() {
     super('/user');
   }
-  // HTTPMethod<Response = void> = (url: string, options?: Options) => Promise<Response >
+
   read(): Promise<User> | any{
     return this.http.get('/profile');
   }

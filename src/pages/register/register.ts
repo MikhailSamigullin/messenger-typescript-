@@ -28,7 +28,6 @@ export class RegisterPage extends Block {
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values);
-    console.log(data);
     AuthController.signup(data as SignupData);
     Router.go('/chat');
   }

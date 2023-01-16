@@ -125,4 +125,5 @@ legend {
   background-size: 30%;
   top: 30px;
   left: 0;
+  cursor: pointer;
 }

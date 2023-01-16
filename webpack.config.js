@@ -12,7 +12,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json', '.css'],
     alias: {
-      'handlebars': 'handlebars/dist/handlebars.js'
+      'handlebars': 'handlebars/dist/handlebars.min.js'
     },
     fallback: {
       "crypto": false,

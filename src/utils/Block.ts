@@ -1,18 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { EventBus } from "./EventBus";
-// import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars'; 
-// import crypto from 'crypto';
+import { makeId } from './helpers';
 
-function makeid(length: number) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for ( let i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
 
 type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void>} & P;
 
@@ -29,13 +19,10 @@ export class Block<P extends Record<string, unknown> = any> {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   private _meta : {tagName: string, props: unknown};
-  public refs: Record<string, Block> = {};
   protected props: Props<P>;
   private eventBus: () => EventBus;
   public children: Record<string, Block<any>>;
-  // public id = nanoid(6);
-  // public id = crypto.randomUUID();
-  public id = makeid(6);
+  public id: string = makeId(6);
 
   constructor(tagName = 'div', propsWithChildren: Props = {} as Props<P>) {
     const eventBus = new EventBus();
@@ -100,12 +87,12 @@ export class Block<P extends Record<string, unknown> = any> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
+  // _createResources() {
 
-  }
+  // }
 
   private _init() {
-    this._createResources();
+    // this._createResources();
 
     this.init();
 
@@ -157,6 +144,7 @@ export class Block<P extends Record<string, unknown> = any> {
   }
 
   protected compile(template: string, context: any) {
+    console.log('compile');
     const contextAndStubs = { ...context};
     const compiled = Handlebars.compile(template);
     const temp = document.createElement('template');
@@ -176,7 +164,7 @@ export class Block<P extends Record<string, unknown> = any> {
 
   _render() {
     const template = this.render();
-    const fragment = this.compile(template, {...this.props, children: this.children, refs: this.refs});
+    const fragment = this.compile(template, {...this.props, children: this.children});
     const newElement = fragment.firstElementChild as HTMLElement;
     this._element?.replaceWith(newElement);
     this._element = newElement;

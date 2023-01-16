@@ -73,6 +73,7 @@
     "@types/node": "^18.11.18",
     "buffer": "^6.0.3",
     "express": "4.18.2",
+    "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.3",
     "nanoid": "3.0.0",
     "path": "^0.12.7",

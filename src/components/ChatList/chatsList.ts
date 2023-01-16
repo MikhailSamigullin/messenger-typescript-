@@ -1,5 +1,4 @@
 import { Block } from '../../utils/Block';
-import Chat from '../Chat/index';
 import * as styles from './chatList.module.css';
 import { withStore } from '../../utils/Store';
 import { ChatInfo } from '../../api/ChatsApi';
@@ -43,35 +42,11 @@ class ChatsListBase extends Block{
             arr;
           ChatsController.selectTitle(title);
           ChatsController.selectAvatar(avatar);
-          Router.go(`/message`)
+          console.log(title);
+          Router.go(`/message`);
         }
       }
     });
-  }
-
-  init() {
-    this.children.chats = this.createChats(this.props) as any;
-  }
-
-  componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
-    this.children.chats = this.createChats(newProps) as any;
-    oldProps;
-    return true;
-  }
-
-  private createChats(props: ChatsListProps) {
-    return props.chats.map(data => {
-      return new Chat({
-        ...data,
-        id: this.props.id,
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault();
-            ChatsController.selectChat(data.id);
-          }
-        }
-      });
-    })
   }
 
   render()  {
@@ -107,7 +82,6 @@ class ChatsListBase extends Block{
       `;
   }
 }
-
 
 const withChats: any = withStore((state) => ({chats: [...(state.chats || [])],
   selectedChat: (state.chats || []).find(({id}) => id === state.selectedChat)

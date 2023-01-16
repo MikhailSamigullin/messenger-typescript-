@@ -9,10 +9,10 @@ export enum StoreEvents {
 }
 
 interface State {
-  selectedTitle: any;
-  selectedAvatar: any;
-  title: any;
-  avatar: any;
+  selectedTitle: string;
+  selectedAvatar: string;
+  title: string;
+  avatar: string;
   user: User;
   chats: ChatInfo[];
   messages: Record<number, Message[]>;

@@ -30,8 +30,6 @@ export class ChangePasswordPageBase extends Block {
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values);
-    console.log(data);
-    console.log(this.props);
     UserController.updatePassword(data as User);
   }
 

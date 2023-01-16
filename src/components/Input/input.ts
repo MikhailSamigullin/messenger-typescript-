@@ -45,4 +45,3 @@ export class Input extends Block {
       return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} value={{oldValue}} >`
   }
 }
-// required={{required}}
