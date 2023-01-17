@@ -15,7 +15,7 @@
     "lintfix": "stylelint \"**/*.scss\" --fix",
     "lint": "stylelint \"**/*.scss\"",
     "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
-    "buildweb": "webpack --mode production  && node app.js",
+    "start": "webpack --mode production  && node app.js",
     "docker": "webpack  --mode production --stats-error-details"
   },
   "keywords": [],
