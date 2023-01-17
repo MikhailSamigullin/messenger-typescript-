@@ -31,6 +31,14 @@ export class Store extends EventBus {
   public getState() {
     return this.state;
   }
+
+  dispatch(nextStateOrAction: any, payload?: any) {
+    if (typeof nextStateOrAction === 'function') {
+      nextStateOrAction(this.dispatch.bind(this), this.state, payload);
+    } else {
+      this.set(this.state, nextStateOrAction );
+    }
+  }
 }
 
 const store = new Store();
@@ -48,6 +56,7 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
         let previousState = mapStateToProps(store.getState());
 
         super({ ...(props as P), ...previousState });
+        store.delete();
 
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
@@ -56,11 +65,8 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
 
           this.setProps({ ...stateProps });
         });
-
       }
-
     }
-
   }
 }
 

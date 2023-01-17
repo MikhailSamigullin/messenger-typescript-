@@ -12,6 +12,7 @@ export class Block<P extends Record<string, unknown> = any> {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:rendeAr',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount'
   } as const;  
 
   private _element : HTMLElement | null = null;
@@ -62,21 +63,27 @@ export class Block<P extends Record<string, unknown> = any> {
     return {props: props as Props<P>, children};
   }
 
-  _addEvent() {
-    const {events = {}} = this.props;
-    Object.keys(events).forEach(eventName => {
-      this.element?.addEventListener(eventName, events[eventName]);
-    })
-  }
+  private _removeEvents() {
+    const { events } = this.props;
 
-  _removeEvents() {
-    const {events = {}} = this.props as {events: Record<string, () => void>};
     if (!events || !this._element) {
       return;
     }
 
-    Object.keys(events).forEach((eventName) => {
-      this.element?.removeEventListener(eventName, events[eventName]);
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element!.removeEventListener(event, listener);
+    });
+  }
+
+  private _addEvent() {
+    const { events } = this.props;
+
+    if (!events) {
+      return;
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element!.addEventListener(event, listener);
     });
   }
 
@@ -85,14 +92,10 @@ export class Block<P extends Record<string, unknown> = any> {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
   }
 
-  // _createResources() {
-
-  // }
-
   private _init() {
-    // this._createResources();
 
     this.init();
 
@@ -129,7 +132,20 @@ export class Block<P extends Record<string, unknown> = any> {
  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   componentDidUpdate(oldProps: Props<P>, newProps: Props<P>): boolean {
+    if (oldProps.buttonText !== newProps.buttonText) {
+      this.children.button.setProps({ text: newProps.buttonText });
+  }
     return true;
+  }
+
+  private _componentWillUnmount() {
+    this.eventBus().delete();
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {
+    console.count('componentWillUnmount')
+    this.eventBus().delete();
   }
 
   setProps = (nextProps: Partial<Props<P>>) => {
@@ -144,7 +160,6 @@ export class Block<P extends Record<string, unknown> = any> {
   }
 
   protected compile(template: string, context: any) {
-    console.log('compile');
     const contextAndStubs = { ...context};
     const compiled = Handlebars.compile(template);
     const temp = document.createElement('template');
@@ -166,8 +181,13 @@ export class Block<P extends Record<string, unknown> = any> {
     const template = this.render();
     const fragment = this.compile(template, {...this.props, children: this.children});
     const newElement = fragment.firstElementChild as HTMLElement;
-    this._element?.replaceWith(newElement);
-    this._element = newElement;
+
+    if (this._element && newElement) {
+      this._removeEvents();
+      this._element.replaceWith(newElement);
+    }
+
+    this._element = newElement as HTMLElement;
     this._addEvent();
   }
 

@@ -30,7 +30,6 @@ export class MessengerBase extends Block {
   }
 
   render() {
-
     return `
     <div>
       {{#each messages}}

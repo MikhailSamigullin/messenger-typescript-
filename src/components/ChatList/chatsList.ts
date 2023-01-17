@@ -42,7 +42,6 @@ class ChatsListBase extends Block{
             arr;
           ChatsController.selectTitle(title);
           ChatsController.selectAvatar(avatar);
-          console.log(title);
           Router.go(`/message`);
         }
       }

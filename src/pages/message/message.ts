@@ -51,7 +51,6 @@ export class MessageBase extends Block {
           const valueName = inputName.value;
 
           if (valueName) {
-            console.log(`В чат ${path} добавляем пользователя ${valueName}` );
             ChatController.addUserToChat(path, +valueName);
           }
 

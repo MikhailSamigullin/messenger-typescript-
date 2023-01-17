@@ -26,7 +26,7 @@ export class ChatPage extends Block {
     })
   }
 
-  init() {
+  init() {    
     this.children.chatsList = new ChatsList({ isLoaded: false });
     this.children.messenger = new Messenger({});
     ChatsController.fetchChats().finally(() => {
@@ -34,10 +34,9 @@ export class ChatPage extends Block {
         isLoaded: true
       })
     });
-  }
+  } 
 
   render() {
-    
     return `  
     <main class="chat__container">
       <div class="chat-list">
