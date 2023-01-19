@@ -1,7 +1,7 @@
 import ChatController from '../../controller/ChatController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
-import * as styles from './link.module.scss';
+import * as styles from './addChat.module.scss';
 
 interface AddChatProps extends PropsWithRouter {
   to: string;
