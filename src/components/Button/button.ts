@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './button.module.css';
+import * as styles from './button.module.scss';
 
 interface buttonProps {
   label: string;

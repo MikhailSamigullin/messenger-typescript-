@@ -1,7 +1,7 @@
 import ChatController from '../../controller/ChatController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
-import * as styles from './deleteLink.module.css';
+import * as styles from './deleteLink.module.scss';
 
 interface DeleteLinkProps extends PropsWithRouter {
   to: string;

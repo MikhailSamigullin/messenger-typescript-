@@ -24,7 +24,7 @@ import { registerComponent} from "../utils/registerComponent";
 import Router from '../utils/Router';
 import AuthController from '../controller/AuthController';
 
-import "./index.css";
+import "./index.scss";
 
 enum Routes {
   Index = '/',

@@ -1,7 +1,7 @@
 // import MessagesController from '../../controller/MessagesController';
 import { Block } from '../../utils/Block';
 import Router from '../../utils/Router';
-import * as styles from './backButton.module.css';
+import * as styles from './backButton.module.scss';
 
 interface backButtonProps {
   label: string;

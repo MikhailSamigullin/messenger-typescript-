@@ -1,6 +1,6 @@
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
-import * as styles from './modal.module.css';
+import * as styles from './modal.module.scss';
 
 interface ModalProps extends PropsWithRouter {
   to: string;

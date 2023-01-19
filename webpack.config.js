@@ -10,7 +10,7 @@ module.exports = {
     filename: 'project-name.bundle.js'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json', '.css'],
+    extensions: ['.ts', '.js', '.json', '.scss', '.css'],
     alias: {
       'handlebars': 'handlebars/dist/handlebars.min.js'
     },
@@ -40,7 +40,7 @@ module.exports = {
         ],
         exclude: /(node_modules)/
       },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.scss$/, use: ['style-loader', 'css-loader', "sass-loader"] },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',

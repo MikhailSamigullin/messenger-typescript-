@@ -2,7 +2,7 @@ import AuthController from '../../controller/AuthController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
 import Router from '../../utils/Router';
-import * as styles from './link.module.css';
+import * as styles from './link.module.scss';
 
 interface LinkProps extends PropsWithRouter {
   to: string;

@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './input.module.css';
+import * as styles from './input.module.scss';
 import { validateInput } from '../../utils/validateInput';
 
 interface InputProps {

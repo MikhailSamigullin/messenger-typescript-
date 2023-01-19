@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './messenger.module.css';
+import * as styles from './messenger.module.scss';
 // import Message from '../Message/index';
 import { Input } from '../Input/input';
 import MessagesController, { Message as MessageInfo } from '../../controller/MessagesController';
