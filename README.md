@@ -60,5 +60,8 @@ docker run messenger
 ### Deployed app on Netlify:
 https://cerulean-arithmetic-f78880.netlify.app
 
+### Deployed app on Render:
+https://messenger-anb1.onrender.com
+
 ### Copy project from praktikum.yandex. Changed color theme and adopted style for current project.
 https://www.figma.com/file/5ooHrRGUu7YL5cSOrY4lzm/Chat_external_link-(Copy)
