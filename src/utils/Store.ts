@@ -1,6 +1,5 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
-import { Block } from './Block';
 import { User } from '../api/AuthApi';
 import { ChatInfo } from '../api/ChatsApi';
 import { Message } from '../controller/MessagesController';
@@ -10,10 +9,10 @@ export enum StoreEvents {
 }
 
 interface State {
-  selectedTitle: any;
-  selectedAvatar: any;
-  title: any;
-  avatar: any;
+  selectedTitle: string;
+  selectedAvatar: string;
+  title: string;
+  avatar: string;
   user: User;
   chats: ChatInfo[];
   messages: Record<number, Message[]>;
@@ -32,6 +31,14 @@ export class Store extends EventBus {
   public getState() {
     return this.state;
   }
+
+  dispatch(nextStateOrAction: any, payload?: any) {
+    if (typeof nextStateOrAction === 'function') {
+      nextStateOrAction(this.dispatch.bind(this), this.state, payload);
+    } else {
+      this.set(this.state, nextStateOrAction );
+    }
+  }
 }
 
 const store = new Store();
@@ -41,7 +48,7 @@ const store = new Store();
 window.store = store;
 
 export function withStore<SP>(mapStateToProps: (state: State) => SP) {
-  return function wrap<P>(Component: typeof Block<SP & P>){
+  return function wrap<P>(Component: any){
 
     return class WithStore extends Component {
 
@@ -49,6 +56,7 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
         let previousState = mapStateToProps(store.getState());
 
         super({ ...(props as P), ...previousState });
+        store.delete();
 
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
@@ -57,11 +65,8 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
 
           this.setProps({ ...stateProps });
         });
-
       }
-
     }
-
   }
 }
 

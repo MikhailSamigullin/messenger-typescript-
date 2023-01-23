@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './chat.module.css';
+import * as styles from './chat.module.scss';
 import { withStore } from '../../utils/Store';
 import { ChatInfo } from '../../api/ChatsApi';
 

@@ -37,3 +37,16 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
 
   return merge(object as Indexed, result);
 }
+
+export function makeId(length: number, addition = ''): string {
+
+  const options: string = addition;
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  characters += options;
+  const charactersLength: number = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  } 
+  return result;
+}

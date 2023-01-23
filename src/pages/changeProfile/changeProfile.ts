@@ -38,7 +38,6 @@ export class ChangeProfilePageBase extends Block {
       .filter(child => child instanceof Input)
       .map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
     const data = Object.fromEntries(values);
-    console.log(data);
     UserController.updateProfile(data as User);
   }
 

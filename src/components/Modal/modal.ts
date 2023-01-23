@@ -1,6 +1,6 @@
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
-import * as styles from './modal.module.css';
+import * as styles from './modal.module.scss';
 
 interface ModalProps extends PropsWithRouter {
   to: string;
@@ -19,10 +19,10 @@ export class ModalBase extends Block {
       style: styles,
 
       events: {
-        click: (e: any) => {
-          const modal:any = document.getElementById("myModal");
-          const btn:any = document.getElementById("myBtn");
-          const span:any = document.getElementsByClassName("close")[0];
+        click: () => {
+          const modal = document.getElementById("myModal") as HTMLElement;
+          const btn = document.getElementById("myBtn") as HTMLElement;
+          const span = document.getElementsByClassName("close")[0] as HTMLElement;
           if (btn) {
             btn.onclick = function() {
             modal.style.display = "block";
@@ -53,7 +53,6 @@ export class ModalBase extends Block {
   }
 
   render() {
-    // console.log(this.props)
       return `
       <div>
         <button href="#" id="myBtn" class="chat__menu"> </button>
@@ -68,7 +67,6 @@ export class ModalBase extends Block {
             <br>
             <form method="put" onClick="submit">
               <input type="input" name="name" placeholder="id_пользователя">
-              
               <br>
               {{#Button type="submit"}}
                 Добавить

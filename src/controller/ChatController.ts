@@ -4,7 +4,6 @@ import MessagesController from './MessagesController';
 
 class ChatsController {
  
-
   private readonly api: ChatsAPI;
   constructor() {
     this.api = API;

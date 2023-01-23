@@ -72,7 +72,7 @@ export default class HTTPTransport {
       };
       if (data instanceof FormData) {
 
-        console.log('data')
+        console.log('')
     }  else {
         xhr.setRequestHeader('content-type', 'application/json');
     }

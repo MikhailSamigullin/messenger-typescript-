@@ -1,25 +1,29 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { EventBus } from "./EventBus";
-import { nanoid } from 'nanoid';
-import Handlebars from 'handlebars';
+import Handlebars from 'handlebars'; 
+import { makeId } from './helpers';
+
 
 type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void>} & P;
 
-export abstract class Block<P extends Record<string, unknown> = any> {
+export class Block<P extends Record<string, unknown> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:rendeAr',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount'
   } as const;  
 
   private _element : HTMLElement | null = null;
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   private _meta : {tagName: string, props: unknown};
-  public refs: Record<string, Block> = {};
   protected props: Props<P>;
   private eventBus: () => EventBus;
   public children: Record<string, Block<any>>;
-  public id = nanoid(6);
+  public id: string = makeId(6);
 
   constructor(tagName = 'div', propsWithChildren: Props = {} as Props<P>) {
     const eventBus = new EventBus();
@@ -59,21 +63,27 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     return {props: props as Props<P>, children};
   }
 
-  _addEvent() {
-    const {events = {}} = this.props;
-    Object.keys(events).forEach(eventName => {
-      this.element?.addEventListener(eventName, events[eventName]);
-    })
-  }
+  private _removeEvents() {
+    const { events } = this.props;
 
-  _removeEvents() {
-    const {events = {}} = this.props as {events: Record<string, () => void>};
     if (!events || !this._element) {
       return;
     }
 
-    Object.keys(events).forEach((eventName) => {
-      this.element?.removeEventListener(eventName, events[eventName]);
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element!.removeEventListener(event, listener);
+    });
+  }
+
+  private _addEvent() {
+    const { events } = this.props;
+
+    if (!events) {
+      return;
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element!.addEventListener(event, listener);
     });
   }
 
@@ -82,14 +92,10 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-  }
-
-  _createResources() {
-
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
   }
 
   private _init() {
-    this._createResources();
 
     this.init();
 
@@ -107,7 +113,7 @@ export abstract class Block<P extends Record<string, unknown> = any> {
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-
+    
   Object.values(this.children).forEach(child => {
     if (Array.isArray(child)) {
       child.forEach(ch => ch.dispatchComponentDidMount());
@@ -123,9 +129,23 @@ export abstract class Block<P extends Record<string, unknown> = any> {
     }
     this._render();
   }
-
+ // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   componentDidUpdate(oldProps: Props<P>, newProps: Props<P>): boolean {
+    if (oldProps.buttonText !== newProps.buttonText) {
+      this.children.button.setProps({ text: newProps.buttonText });
+  }
     return true;
+  }
+
+  private _componentWillUnmount() {
+    this.eventBus().delete();
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {
+    console.count('componentWillUnmount')
+    this.eventBus().delete();
   }
 
   setProps = (nextProps: Partial<Props<P>>) => {
@@ -159,10 +179,15 @@ export abstract class Block<P extends Record<string, unknown> = any> {
 
   _render() {
     const template = this.render();
-    const fragment = this.compile(template, {...this.props, children: this.children, refs: this.refs});
+    const fragment = this.compile(template, {...this.props, children: this.children});
     const newElement = fragment.firstElementChild as HTMLElement;
-    this._element?.replaceWith(newElement);
-    this._element = newElement;
+
+    if (this._element && newElement) {
+      this._removeEvents();
+      this._element.replaceWith(newElement);
+    }
+
+    this._element = newElement as HTMLElement;
     this._addEvent();
   }
 

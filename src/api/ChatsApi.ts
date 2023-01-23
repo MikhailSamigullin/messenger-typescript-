@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import BaseAPI from './BaseApi';
 import { User } from './AuthApi';
 

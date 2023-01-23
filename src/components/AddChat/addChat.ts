@@ -1,7 +1,7 @@
 import ChatController from '../../controller/ChatController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
-import * as styles from './link.module.css';
+import * as styles from './addChat.module.scss';
 
 interface AddChatProps extends PropsWithRouter {
   to: string;
@@ -23,7 +23,6 @@ export class AddChatBase extends Block {
           let titleChat: any = '';
           titleChat = prompt('Введите название чата');
           this.navigate();
-          console.log(titleChat);
           ChatController.create(titleChat);
         } 
       }
@@ -32,7 +31,6 @@ export class AddChatBase extends Block {
 
   navigate() {
     this.props.router.go(this.props.to);
-    console.log(Object.entries(this.props) )
   }
 
   render() {

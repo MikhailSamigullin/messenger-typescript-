@@ -1,6 +1,7 @@
+// import MessagesController from '../../controller/MessagesController';
 import { Block } from '../../utils/Block';
 import Router from '../../utils/Router';
-import * as styles from './backButton.module.css';
+import * as styles from './backButton.module.scss';
 
 interface backButtonProps {
   label: string;
@@ -27,7 +28,7 @@ export class BackButton extends Block {
   }
 
   render() {
-    return `<a class="${ styles.sidebar }" href="{{href}}" >
+    return `<a class="sidebar" href="{{href}}" >
             {{ label }}
             </a>`
   }

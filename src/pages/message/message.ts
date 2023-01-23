@@ -1,13 +1,9 @@
 import { Block } from '../../utils/Block';
 import { ChatInfo } from '../../api/ChatsApi';
 import ChatController from '../../controller/ChatController';
-import ChatsList from '../../components/ChatList';
-import Messenger from '../../components/Messenger';
 import MessagesController from '../../controller/MessagesController';
-import Chat from '../../components/Chat';
 import { withStore } from '../../utils/Store';
-import Message from '../../components/Message';
-import Handlebars from 'handlebars'
+import Handlebars from 'handlebars';
 
 interface MessagePageProps {
   messages: any;
@@ -46,7 +42,6 @@ export class MessageBase extends Block {
           const value = input.value;
 
           if (value) {
-            console.log(`В чат ${path} отправляем сообщение: ${value}` );
             MessagesController.sendMessage(path, value);
           }
 
@@ -56,7 +51,6 @@ export class MessageBase extends Block {
           const valueName = inputName.value;
 
           if (valueName) {
-            console.log(`В чат ${path} добавляем пользователя ${valueName}` );
             ChatController.addUserToChat(path, +valueName);
           }
 
@@ -65,7 +59,6 @@ export class MessageBase extends Block {
           const inputId = document.querySelector('input[name="id_user"]') as HTMLInputElement;
           const valueId = inputId.value;
           if (valueId) {
-            console.log(`Из чата ${path} удаляем пользователя ${valueId}` );
             ChatController.deleteUserFromChat(path, +valueId);
           }
           inputId.value = '';
@@ -75,44 +68,8 @@ export class MessageBase extends Block {
     )
   }
 
-  private createMessages(props: MessagePageProps) {
-    return props.messages.map((data: any) => {
-      return new Message({...data, isMine: props.userId === data.user_id });
-    })
-  }
-
-  private createChats(props: MessagePageProps) {
-    return props.chats.map(data => {
-      return new Chat({
-        ...data,
-      id: this.props.id,
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault();
-            ChatController.selectChat(data.id);
-          }
-        }
-      });
-    })
-  }
-
-  init() {
-    this.children.chatsList = new ChatsList({ isLoaded: false });
-    this.children.messenger = new Messenger({});
-
-    ChatController.fetchChats().finally(() => {
-      (this.children.chatsList as Block).setProps({
-        isLoaded: true
-      })
-      console.log(this.props)
-
-    });
-  }
-
   render()
   { 
-   
-    // console.log(this.props)
     return `  
       <main class="chat">
         <div class="chat__header">
@@ -127,13 +84,10 @@ export class MessageBase extends Block {
           {{#each this.messages}}
             {{this.title}}
           {{/each}}
-
           {{#Modal chatId="${this.props.selectedChat}"}}
           {{/Modal}}
-
         </div>
         <div class="dialog">
-        
         {{#each this.messages}}
           {{#ifCond user_id ${this.props.userId}}}
             <div class="chat__message_mine">
@@ -145,7 +99,6 @@ export class MessageBase extends Block {
             </div>
           {{/ifCond}}
         {{/each}}
-
         </div>
           <form class="chat__footer" method="post" onClick="submit">
             <a href="#" class="chat__upload"></a>
@@ -162,7 +115,6 @@ export class MessageBase extends Block {
   }
 }
 
-
 const withChats: any = withStore((state) => {
   const selectedChatId: number | undefined = state.selectedChat;
   return {
@@ -176,8 +128,6 @@ const withChats: any = withStore((state) => {
   
 
 });
-
-
 
 Handlebars.registerHelper('ifCond', function(v1: number | string, v2: number | string, options: any) {
   if(v1 === v2) {

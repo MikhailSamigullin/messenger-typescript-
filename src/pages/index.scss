@@ -85,3 +85,17 @@ body {
 .enter__link {
   @include font(11px, 500, $dark-blue);
 }
+
+.button {
+  @include font(13px, 400, $white);
+
+  background-color: $mint;
+  width: 280px;
+  height: 37px;
+  border-radius: 8px;
+  justify-self: end;
+  margin-top: auto;
+  margin-bottom: 6px;
+  text-align: center;
+  line-height: 36px;
+}

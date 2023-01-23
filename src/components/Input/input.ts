@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './input.module.css';
+import * as styles from './input.module.scss';
 import { validateInput } from '../../utils/validateInput';
 
 interface InputProps {
@@ -33,8 +33,15 @@ export class Input extends Block {
     return (this.element as HTMLInputElement).value;
   }
 
+  public getPlaceholder() {
+    return (this.element as HTMLInputElement).placeholder;
+  }
+
+  public setPlaceholder(placeholder: string) {
+    return (this.element as HTMLInputElement).placeholder = placeholder;
+  }
+
   render() {
       return `<input class=${styles.input} type={{type}} name={{name}} placeholder={{value}} value={{oldValue}} >`
   }
 }
-// required={{required}}

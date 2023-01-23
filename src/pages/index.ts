@@ -1,6 +1,5 @@
 import { LoginPage } from "./login/login";
 import { RegisterPage } from "./register/register";
-import { ErrorPage } from "./error/error";
 import { ChatPage } from "./chat/chat";
 import { MessagePage } from "./message/message";
 import { ProfilePage } from "./profile/profile";
@@ -24,6 +23,8 @@ import { registerComponent} from "../utils/registerComponent";
 
 import Router from '../utils/Router';
 import AuthController from '../controller/AuthController';
+
+import "./index.scss";
 
 enum Routes {
   Index = '/',

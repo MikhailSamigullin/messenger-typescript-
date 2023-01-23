@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
@@ -10,6 +13,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ]
   }
 }

@@ -1,13 +1,9 @@
 import { Block } from '../../utils/Block';
-import * as styles from './button.module.css';
+import * as styles from './button.module.scss';
 
 interface buttonProps {
   label: string;
   type: string;
-  inputFields: string[];
-  events: {
-    click: () => void;
-  };
 }
 
 export class Button extends Block {
@@ -15,17 +11,11 @@ export class Button extends Block {
     super('button', {
       ...props,
       style: styles,
-      events: {
-        // click: () => this.onSubmit()
-      }
     });
-  }
-  onSubmit() {
-    console.log("submit");
   }
 
   render() {
-      return `<button class="${styles.button}" type="{{type}}" onclick="{{onClick}}">
+      return `<button class="button" type="{{type}}" onclick="{{onClick}}">
                 {{ label }}
               </button>`
   }

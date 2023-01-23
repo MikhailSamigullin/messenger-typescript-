@@ -31,16 +31,16 @@ export class AuthAPI extends BaseAPI {
     super('/auth');
   }
 
-  signin(data: SigninData) {
+  signin(data: SigninData | any) {
     return this.http.post('/signin', data);
   }
 
 
-  signup(data: SignupData) {
+  signup(data: SignupData | any) {
     return this.http.post('/signup', data);
   }
 
-  read(): Promise<User> {
+  read(): Promise<User> | any {
     return this.http.get('/user');
   }
 

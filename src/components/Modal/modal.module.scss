@@ -18,35 +18,30 @@
   }
 }
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0 0 0); /* Fallback color */
-  background-color: rgb(0 0 0 / 40%); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0 0 0);
+  background-color: rgb(0 0 0 / 40%);
 }
 
-/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 3.4% auto; /* 15% from the top and centered */
+  margin: 3.4% auto;
   padding: 20px;
   border: 4px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
   border-radius: 15px;
 }
 
-/* The Close Button */
 .close {
   color: #aaa;
-
-  // float: right;
   font-size: 32px;
   font-weight: bold;
 }

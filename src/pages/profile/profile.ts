@@ -21,9 +21,9 @@ class ProfilePageBase extends Block {
   render() {
     return `  
       <div class="login__container">
-        {{#BackButton href="/chat"}}
-        {{/BackButton}}
         <div class="login-register">
+          {{#BackButton href="/chat"}}
+          {{/BackButton}}
           <div class="header">
             {{#Link  class="header__photo" onClick="click" to="/changeAvatar"}}
               

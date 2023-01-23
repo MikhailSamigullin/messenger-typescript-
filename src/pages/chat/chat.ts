@@ -22,12 +22,11 @@ export class ChatPage extends Block {
     this.setProps({
       chats: props.chats,
       events: {
-
     }
     })
   }
 
-  init() {
+  init() {    
     this.children.chatsList = new ChatsList({ isLoaded: false });
     this.children.messenger = new Messenger({});
     ChatsController.fetchChats().finally(() => {
@@ -35,10 +34,9 @@ export class ChatPage extends Block {
         isLoaded: true
       })
     });
-  }
+  } 
 
   render() {
-    
     return `  
     <main class="chat__container">
       <div class="chat-list">
@@ -46,9 +44,7 @@ export class ChatPage extends Block {
           {{#AddChat class="chat-list__add-button"}}
             + Новый чат
           {{/AddChat}}
-          
-
-          {{#Link  class="" onClick="click" to="/profile"}}
+          {{#Link  class="pointer" onClick="click" to="/profile"}}
           Профиль
             {{/Link}}
         </div>
@@ -59,10 +55,8 @@ export class ChatPage extends Block {
             placeholder="Поиск">
         </div>
         <div class="list">
-
         {{#ChatList isLoaded="true"}}
         {{/ChatList}}
-
         </div>
       </div>
     </main>   

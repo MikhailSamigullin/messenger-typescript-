@@ -1,5 +1,5 @@
 import { Block } from '../../utils/Block';
-import * as styles from './message.module.css';
+import * as styles from './message.module.scss';
 
 interface MessageProps {
   content: string;

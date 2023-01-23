@@ -2,7 +2,7 @@ import AuthController from '../../controller/AuthController';
 import { PropsWithRouter, withRouter } from '../../hocs/withRouter';
 import { Block } from '../../utils/Block';
 import Router from '../../utils/Router';
-import * as styles from './link.module.css';
+import * as styles from './link.module.scss';
 
 interface LinkProps extends PropsWithRouter {
   to: string;
@@ -21,8 +21,6 @@ export class BaseLink extends Block {
       events: {
         click: (e: any) => {
           e.preventDefault();
-          
-          console.log(this.props.to)
           if (this.props.to === '/') {
             AuthController.logout();
           }
@@ -36,7 +34,6 @@ export class BaseLink extends Block {
             Router.go('/changeAvatar')
           }
           this.navigate();
-
         } 
       }
     });
@@ -44,7 +41,6 @@ export class BaseLink extends Block {
 
   navigate() {
     this.props.router.go(this.props.to);
-    console.log(Object.entries(this.props));
   }
 
   render() {

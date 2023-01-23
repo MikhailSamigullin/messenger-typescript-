@@ -5,7 +5,7 @@ export class EventBus<
   E extends Record<string, string> = Record<string, string>,
   Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>
 > {
-  private readonly listeners: {
+  listeners: {
     [K in MapInterface<E>]?: Handler<Args[K]>[]
   } = {};
 
@@ -13,7 +13,6 @@ export class EventBus<
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
-
 
     this.listeners[event]?.push(callback);
   }
@@ -23,7 +22,7 @@ export class EventBus<
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event] = this.listeners[event]!.filter(
+    this.listeners[event] = this.listeners[event]?.filter(
       listener => listener !== callback
     );
   }
@@ -33,8 +32,12 @@ export class EventBus<
       return;
     }
 
-    this.listeners[event]!.forEach(listener => {
+    this.listeners[event]?.forEach(listener => {
       listener(...args);
     });
+  }
+
+  delete() {
+    this.listeners = {};
   }
 }
